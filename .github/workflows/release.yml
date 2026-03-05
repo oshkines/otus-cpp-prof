@@ -18,8 +18,8 @@ jobs:
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_BOOST_TEST=ON
       - run: cmake --build .
       # временно закоментировал
-      #- run: cmake --build . --target test
-      #- run: cmake --build . --target package
+      - run: cmake --build . --target test
+      - run: cmake --build . --target package
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
