@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <algorithm>
 #include <iterator>
-#include "lib.h"  
+#include "lib.h" 
 
 // ============================================================
 // Аллокатор с фиксированным количеством элементов (статический пул)
@@ -105,8 +105,8 @@ private:
     size_type size_;
 
 public:
-    MyContainer() : head_(nullptr), tail_(nullptr), size_(0), node_alloc_() {}
-    explicit MyContainer(const Allocator& alloc) : head_(nullptr), tail_(nullptr), size_(0), node_alloc_(alloc) {}
+    MyContainer() : node_alloc_(), head_(nullptr), tail_(nullptr), size_(0) {}
+    explicit MyContainer(const Allocator& alloc) : node_alloc_(alloc), head_(nullptr), tail_(nullptr), size_(0) {}
 
     ~MyContainer() {
         clear();
