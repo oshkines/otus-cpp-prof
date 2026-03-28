@@ -1,181 +1,206 @@
-#include <cassert>
-#include <cstdlib>
 #include <iostream>
-#include <string>
+#include <map>
 #include <vector>
-#include <sstream>
-#include <array>
-#include <cstdint>
+#include <memory>
+#include <stdexcept>
 #include <algorithm>
-#include "lib.h"
+#include <iterator>
+#include "lib.h"  
 
-#ifdef _WIN32
-    #include <windows.h> 
-#endif
+// ============================================================
+// Аллокатор с фиксированным количеством элементов (статический пул)
+// ============================================================
+template<typename T, size_t N>
+class FixedAllocator {
+    struct Pool {
+        T* storage;
+        std::vector<size_t> free_list;
 
-#include <fstream>
-
-void setupConsole() {
-    #ifdef _WIN32
-        SetConsoleOutputCP(CP_UTF8);   
-        SetConsoleCP(CP_UTF8);          
-        setlocale(LC_ALL, "Russian");   
-        setlocale(LC_ALL, "ru_RU.UTF-8"); 
-    #endif
-    std::ios_base::sync_with_stdio(false); 
-    std::cin.tie(nullptr);                 
-}
-
-// std::vector<std::string> readLinesFromFile(const std::string& filename) {
-//     std::vector<std::string> lines;
-//     std::ifstream file(filename);
-//     if (!file.is_open()) {
-//         throw std::runtime_error("Cannot open file: " + filename);
-//     }
-//     std::string line;
-//     while (std::getline(file, line)) {
-//         // Удаляем символ возврата каретки (\r) для Windows-файлов
-//         if (!line.empty() && line.back() == '\r') {
-//             line.pop_back();
-//         }
-//         lines.push_back(line);
-//     }
-//     return lines;
-// }
-
-void processInput(std::istream& in, std::vector<std::array<uint8_t, 4>>& ipVector) {
-    std::string line;
-    while (std::getline(in, line)) {
-        if (line.empty()) continue;
-
-        // Находим первую табуляцию, чтобы отсечь text2 и text3
-        size_t tab_pos = line.find('\t');
-        std::string ip_part = (tab_pos != std::string::npos) ? line.substr(0, tab_pos) : line;
-
-        // Заменяем точки на пробелы для удобного чтения через stringstream
-        std::replace(ip_part.begin(), ip_part.end(), '.', ' ');
-        std::stringstream ss(ip_part);
-        
-        int a, b, c, d;
-        if (ss >> a >> b >> c >> d) {
-            ipVector.push_back({
-                static_cast<uint8_t>(a),
-                static_cast<uint8_t>(b),
-                static_cast<uint8_t>(c),
-                static_cast<uint8_t>(d)
-            });
+        Pool() {
+            storage = static_cast<T*>(::operator new(sizeof(T) * N));
+            for (size_t i = N; i > 0; --i)
+                free_list.push_back(i - 1);
         }
-    }
-}
-
-int main(int argc, char const *argv[])
-{
-
-    setupConsole();
-
-    std::vector<std::array<uint8_t, 4>> ipVector;
-
-    if (argc > 1) {
-        // Режим отладки: передаем файл аргументом (./ip_filter test.tsv)
-        std::ifstream file(argv[1]);
-        if (!file) {
-            std::cerr << "Error: " << argv[1] << " not found" << std::endl;
-            return 1;
+        ~Pool() {
+            ::operator delete(storage);
         }
-        processInput(file, ipVector);
-    } else {
-        // Режим сдачи: читаем из pipe (cat data.tsv | ./ip_filter)
-        processInput(std::cin, ipVector);
-    }
-
-    std::sort(ipVector.begin(), ipVector.end(), [](const auto& a, const auto& b) { return a > b; });
-
-    auto print_ip = [](const auto& ip) 
-    {
-        std::cout << (int)ip[0] << "." << (int)ip[1] << "." 
-                  << (int)ip[2] << "." << (int)ip[3] << "\n";
+        Pool(const Pool&) = delete;
+        Pool& operator=(const Pool&) = delete;
     };
 
-    // for (const auto& ip : ipVector) {
-    //     std::cout << (int)ip[0] << "." << (int)ip[1] << "." << (int)ip[2] << "." << (int)ip[3] << "\n";
-    // }
-    for (const auto& ip : ipVector) print_ip(ip);
-
-    // // 2. Первый байт равен 1
-    // for (const auto& ip : ipVector) {
-    //     if (ip[0] == 1) {
-    //         std::cout << (int)ip[0] << "." << (int)ip[1] << "." << (int)ip[2] << "." << (int)ip[3] << "\n";
-    //     }
-    // }
-
-    // // 3. Первый байт 46, второй 70
-    // for (const auto& ip : ipVector) {
-    //     if (ip[0] == 46 && ip[1] == 70) {
-    //         std::cout << (int)ip[0] << "." << (int)ip[1] << "." << (int)ip[2] << "." << (int)ip[3] << "\n";
-    //     }
-    // }
-
-    // // 4. Любой байт равен 46 (используем std::any_of из C++11)
-    // for (const auto& ip : ipVector) {
-    //     if (std::any_of(ip.begin(), ip.end(), [](uint8_t byte){ return byte == 46; })) {
-    //         std::cout << (int)ip[0] << "." << (int)ip[1] << "." << (int)ip[2] << "." << (int)ip[3] << "\n";
-    //     }
-    // }
-
-    // 2. Первый байт равен 1
-    for (const auto& ip : ipVector) {
-        if (ip[0] == 1) print_ip(ip);
+    static Pool& get_pool() {
+        static Pool pool;
+        return pool;
     }
 
-    // 3. Первый байт 46, второй 70
-    for (const auto& ip : ipVector) {
-        if (ip[0] == 46 && ip[1] == 70) print_ip(ip);
+public:
+    using value_type = T;
+    using pointer = T*;
+    using const_pointer = const T*;
+    using reference = T&;
+    using const_reference = const T&;
+    using size_type = size_t;
+    using difference_type = ptrdiff_t;
+
+    FixedAllocator() = default;
+
+    template<typename U>
+    FixedAllocator(const FixedAllocator<U, N>&) {}
+
+    pointer allocate(size_type n) {
+        if (n != 1) throw std::bad_alloc();
+        Pool& pool = get_pool();
+        if (pool.free_list.empty()) throw std::bad_alloc();
+        size_t idx = pool.free_list.back();
+        pool.free_list.pop_back();
+        return pool.storage + idx;
     }
 
-    // 4. Любой байт равен 46
-    for (const auto& ip : ipVector) {
-        if (std::any_of(ip.begin(), ip.end(), [](uint8_t byte){ return byte == 46; })) {
-            print_ip(ip);
+    void deallocate(pointer p, size_type n) noexcept {
+        if (p == nullptr || n == 0) return;
+        Pool& pool = get_pool();
+        size_t idx = p - pool.storage;
+        pool.free_list.push_back(idx);
+    }
+
+    template<typename U, typename... Args>
+    void construct(U* p, Args&&... args) {
+        ::new(static_cast<void*>(p)) U(std::forward<Args>(args)...);
+    }
+
+    template<typename U>
+    void destroy(U* p) {
+        p->~U();
+    }
+
+    template<typename U>
+    struct rebind {
+        using other = FixedAllocator<U, N>;
+    };
+
+    bool operator==(const FixedAllocator&) const { return true; }
+    bool operator!=(const FixedAllocator&) const { return false; }
+};
+
+// ============================================================
+// Собственный контейнер (односвязный список) с аллокатором
+// ============================================================
+template<typename T, typename Allocator = std::allocator<T>>
+class MyContainer {
+public:
+    using value_type = T;
+    using allocator_type = Allocator;
+    using size_type = size_t;
+
+private:
+    struct Node {
+        T value;
+        Node* next;
+    };
+
+    using NodeAllocator = typename std::allocator_traits<Allocator>::template rebind_alloc<Node>;
+    NodeAllocator node_alloc_;
+    Node* head_;
+    Node* tail_;
+    size_type size_;
+
+public:
+    MyContainer() : head_(nullptr), tail_(nullptr), size_(0), node_alloc_() {}
+    explicit MyContainer(const Allocator& alloc) : head_(nullptr), tail_(nullptr), size_(0), node_alloc_(alloc) {}
+
+    ~MyContainer() {
+        clear();
+    }
+
+    void push_back(const T& value) {
+        Node* new_node = node_alloc_.allocate(1);
+        std::allocator_traits<NodeAllocator>::construct(node_alloc_, new_node, Node{value, nullptr});
+        if (tail_) {
+            tail_->next = new_node;
+            tail_ = new_node;
+        } else {
+            head_ = tail_ = new_node;
         }
+        ++size_;
     }
 
-    // auto lines = readLinesFromFile("ip_filter.tsv");
-    // std::cout << "Прочитано строк: " << lines.size() << "\n\n";
+    size_type size() const { return size_; }
+    bool empty() const { return size_ == 0; }
 
-    // std::vector<std::array<uint8_t, 4>> ipVector;
-    // ipVector.reserve(lines.size());
+    class iterator {
+    public:
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = T;
+        using difference_type = ptrdiff_t;
+        using pointer = T*;
+        using reference = T&;
 
-    // try
-    // {
-    //     for (const auto& line : lines) 
-    //     {
-    //         if (line.empty()) continue;
-    //             std::stringstream ss(line);
-    //             int part[4];
-    //             char dot;
-    //             int dummy; // Для остальных чисел в строке
-    //             if (ss >> part[0] >> dot >> part[1] >> dot >> part[2] >> dot >> part[3]) {
-    //                 ipVector.push_back({
-    //                     static_cast<uint8_t>(part[0]),
-    //                     static_cast<uint8_t>(part[1]),
-    //                     static_cast<uint8_t>(part[2]),
-    //                     static_cast<uint8_t>(part[3])
-    //                 }); 
-    //             }
-    //     }
-    //     std::cout << "распарсили файл, взяли ip адрес в вектор массивов" << "\n\n";
+        iterator(Node* node) : node_(node) {}
+        reference operator*() const { return node_->value; }
+        pointer operator->() const { return &node_->value; }
+        iterator& operator++() { node_ = node_->next; return *this; }
+        iterator operator++(int) { iterator tmp = *this; ++(*this); return tmp; }
+        bool operator==(const iterator& other) const { return node_ == other.node_; }
+        bool operator!=(const iterator& other) const { return !(*this == other); }
+    private:
+        Node* node_;
+    };
 
-    //     std::sort(ipVector.begin(), ipVector.end(), [](const auto& a, const auto& b) {
-    //         return a > b; 
-    //     });
+    iterator begin() { return iterator(head_); }
+    iterator end() { return iterator(nullptr); }
 
-    // }
-    // catch(const std::exception &e)
-    // {
-    //     std::cerr << e.what() << std::endl;
-    //     return -1;
-    // }
+private:
+    void clear() {
+        Node* cur = head_;
+        while (cur) {
+            Node* next = cur->next;
+            std::allocator_traits<NodeAllocator>::destroy(node_alloc_, cur);
+            node_alloc_.deallocate(cur, 1);
+            cur = next;
+        }
+        head_ = tail_ = nullptr;
+        size_ = 0;
+    }
+};
+
+int factorial(int n) {
+    int result = 1;
+    for (int i = 1; i <= n; ++i) result *= i;
+    return result;
+}
+
+int main() {
+    // 1. std::map с обычным аллокатором
+    std::map<int, int> map1;
+    for (int i = 0; i < 10; ++i) map1[i] = factorial(i);
+
+    // 2. std::map с нашим аллокатором, ограниченным 11 элементами (учитываем служебный узел)
+    FixedAllocator<std::pair<const int, int>, 11> alloc;
+    std::map<int, int, std::less<int>, FixedAllocator<std::pair<const int, int>, 11>> map2(alloc);
+    for (int i = 0; i < 10; ++i) map2[i] = factorial(i);
+
+    std::cout << "std::map with default allocator:\n";
+    for (const auto& p : map1) std::cout << p.first << " " << p.second << "\n";
+
+    std::cout << "\nstd::map with FixedAllocator<11>:\n";
+    for (const auto& p : map2) std::cout << p.first << " " << p.second << "\n";
+
+    // 3. Свой контейнер с обычным аллокатором
+    MyContainer<int> cont1;
+    for (int i = 0; i < 10; ++i) cont1.push_back(i);
+
+    // 4. Свой контейнер с нашим аллокатором для int (10 элементов)
+    FixedAllocator<int, 10> int_alloc;
+    MyContainer<int, FixedAllocator<int, 10>> cont2(int_alloc);
+    for (int i = 0; i < 10; ++i) cont2.push_back(i);
+
+    std::cout << "\nMyContainer with default allocator:\n";
+    for (auto val : cont1) std::cout << val << " ";
+    std::cout << "\n";
+
+    std::cout << "\nMyContainer with FixedAllocator<int,10>:\n";
+    for (auto val : cont2) std::cout << val << " ";
+    std::cout << "\n";
 
     return 0;
 }
-
