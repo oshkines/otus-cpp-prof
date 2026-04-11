@@ -1,0 +1,87 @@
+\doxysection{main.\+cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{main.cpp@{main.cpp}}
+{\ttfamily \+\#include $<$iostream$>$}\newline
+{\ttfamily \+\#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \+\#include $<$vector$>$}\newline
+{\ttfamily \+\#include $<$list$>$}\newline
+{\ttfamily \+\#include $<$string$>$}\newline
+{\ttfamily \+\#include $<$tuple$>$}\newline
+{\ttfamily \+\#include $<$utility$>$}\newline
+{\ttfamily \+\#include $<$cstdint$>$}\newline
+Include dependency graph for main.\+cpp:\+
+% FIG 0
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structis__container}{is\+\_\+container$<$ T, typename $>$}}
+\item 
+struct \doxymbox{\hyperlink{structis__container_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_01_t_01_4_07_08_8b8de4275c57050e20d163d06e3eb847c}{is\+\_\+container$<$ T, std::\+void\+\_\+t$<$ decltype(std::\+declval$<$ T $>$().\+begin()), decltype(std::\+declval$<$ T $>$().\+end()), typename T::\+value\+\_\+type $>$ $>$}}
+\item 
+struct \doxymbox{\hyperlink{structis__tuple}{is\+\_\+tuple$<$ T $>$}}
+\item 
+struct \doxymbox{\hyperlink{structis__tuple_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4}{is\+\_\+tuple$<$ std::\+tuple$<$ Ts... $>$ $>$}}
+\item 
+struct \doxymbox{\hyperlink{structtuple__types__are__equal}{tuple\+\_\+types\+\_\+are\+\_\+equal$<$ Tuple $>$}}
+\item 
+struct \doxymbox{\hyperlink{structtuple__types__are__equal_3_01std_1_1tuple_3_01_t_01_4_01_4}{tuple\+\_\+types\+\_\+are\+\_\+equal$<$ std::\+tuple$<$ T $>$ $>$}}
+\item 
+struct \doxymbox{\hyperlink{structtuple__types__are__equal_3_01std_1_1tuple_3_01_t_00_01_ts_8_8_8_01_4_01_4}{tuple\+\_\+types\+\_\+are\+\_\+equal$<$ std::\+tuple$<$ T, Ts... $>$ $>$}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T$>$ }\\using \doxymbox{\hyperlink{main_8cpp_ae520d88e10b44b5b78665c8a94f34440}{is\+\_\+integer\+\_\+for\+\_\+ip}}
+\item 
+{\footnotesize template$<$typename T$>$ }\\using \doxymbox{\hyperlink{main_8cpp_afc10b4c0b54027986dbd9e7e188517a1}{is\+\_\+string}} = std::\+is\+\_\+same$<$std::\+decay\+\_\+t$<$T$>$, std::\+string$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T, typename std::\+enable\+\_\+if$<$ \doxymbox{\hyperlink{main_8cpp_ae520d88e10b44b5b78665c8a94f34440}{is\+\_\+integer\+\_\+for\+\_\+ip}}$<$ T $>$::\+value, int $>$::\+type = 0$>$ }\\void \doxymbox{\hyperlink{main_8cpp_adc87c2202fc1519a6d2ff6fe1fc96a78}{print\+\_\+ip}} (const T \&value)
+\item 
+int \doxymbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+
+
+\label{doc-typedef-members}
+\Hypertarget{main_8cpp_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{main_8cpp_ae520d88e10b44b5b78665c8a94f34440}\index{main.cpp@{main.cpp}!is\_integer\_for\_ip@{is\_integer\_for\_ip}}
+\index{is\_integer\_for\_ip@{is\_integer\_for\_ip}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{is\_integer\_for\_ip}{is\_integer\_for\_ip}}
+{\footnotesize\ttfamily \label{main_8cpp_ae520d88e10b44b5b78665c8a94f34440} 
+template$<$typename T$>$ \\
+using \doxymbox{\hyperlink{main_8cpp_ae520d88e10b44b5b78665c8a94f34440}{is\+\_\+integer\+\_\+for\+\_\+ip}}}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ std::integral\_constant<bool,}
+\DoxyCodeLine{\ \ \ \ std::is\_integral<T>::value\ \&\&\ !std::is\_same<T,\ bool>::value}
+\DoxyCodeLine{>}
+
+\end{DoxyCode}
+\Hypertarget{main_8cpp_afc10b4c0b54027986dbd9e7e188517a1}\index{main.cpp@{main.cpp}!is\_string@{is\_string}}
+\index{is\_string@{is\_string}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{is\_string}{is\_string}}
+{\footnotesize\ttfamily \label{main_8cpp_afc10b4c0b54027986dbd9e7e188517a1} 
+template$<$typename T$>$ \\
+using \doxymbox{\hyperlink{main_8cpp_afc10b4c0b54027986dbd9e7e188517a1}{is\+\_\+string}} = std::\+is\+\_\+same$<$std::\+decay\+\_\+t$<$T$>$, std::\+string$>$}
+
+
+
+\label{doc-func-members}
+\Hypertarget{main_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{main_8cpp_adc87c2202fc1519a6d2ff6fe1fc96a78}\index{main.cpp@{main.cpp}!print\_ip@{print\_ip}}
+\index{print\_ip@{print\_ip}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{print\_ip()}{print\_ip()}}
+{\footnotesize\ttfamily \label{main_8cpp_adc87c2202fc1519a6d2ff6fe1fc96a78} 
+template$<$typename T, typename std::\+enable\+\_\+if$<$ \doxymbox{\hyperlink{main_8cpp_ae520d88e10b44b5b78665c8a94f34440}{is\+\_\+integer\+\_\+for\+\_\+ip}}$<$ T $>$::\+value, int $>$::\+type = 0$>$ \\
+void print\+\_\+ip (\begin{DoxyParamCaption}\item[{const T \&}]{value}{}\end{DoxyParamCaption})}
+
