@@ -1,206 +1,106 @@
 #include <iostream>
-#include <map>
+#include <type_traits>
 #include <vector>
-#include <memory>
-#include <stdexcept>
-#include <algorithm>
-#include <iterator>
-#include "lib.h" 
+#include <list>
+#include <string>
+#include <tuple>
+#include <utility>
+#include <cstdint>
+#include "lib.h"
 
-// ============================================================
-// Аллокатор с фиксированным количеством элементов (статический пул)
-// ============================================================
-template<typename T, size_t N>
-class FixedAllocator {
-    struct Pool {
-        T* storage;
-        std::vector<size_t> free_list;
+// Определяем, является ли тип целочисленным (исключаем bool)
+template<typename T>
+using is_integer_for_ip = std::integral_constant<bool,
+    std::is_integral<T>::value && !std::is_same<T, bool>::value
+>;
 
-        Pool() {
-            storage = static_cast<T*>(::operator new(sizeof(T) * N));
-            for (size_t i = N; i > 0; --i)
-                free_list.push_back(i - 1);
-        }
-        ~Pool() {
-            ::operator delete(storage);
-        }
-        Pool(const Pool&) = delete;
-        Pool& operator=(const Pool&) = delete;
-    };
+// Определяем, является ли тип строкой std::string
+template<typename T>
+using is_string = std::is_same<std::decay_t<T>, std::string>;
 
-    static Pool& get_pool() {
-        static Pool pool;
-        return pool;
-    }
+// Определяем, является ли тип контейнером (имеет begin/end, не является строкой)
+template<typename T, typename = void>
+struct is_container : std::false_type {};
+template<typename T>
+struct is_container<T, std::void_t<
+    decltype(std::declval<T>().begin()),
+    decltype(std::declval<T>().end()),
+    typename T::value_type
+>> : std::true_type {};
 
-public:
-    using value_type = T;
-    using pointer = T*;
-    using const_pointer = const T*;
-    using reference = T&;
-    using const_reference = const T&;
-    using size_type = size_t;
-    using difference_type = ptrdiff_t;
+// Определяем, является ли тип кортежем std::tuple
+template<typename T>
+struct is_tuple : std::false_type {};
+template<typename... Ts>
+struct is_tuple<std::tuple<Ts...>> : std::true_type {};
 
-    FixedAllocator() = default;
-
-    template<typename U>
-    FixedAllocator(const FixedAllocator<U, N>&) {}
-
-    pointer allocate(size_type n) {
-        if (n != 1) throw std::bad_alloc();
-        Pool& pool = get_pool();
-        if (pool.free_list.empty()) throw std::bad_alloc();
-        size_t idx = pool.free_list.back();
-        pool.free_list.pop_back();
-        return pool.storage + idx;
-    }
-
-    void deallocate(pointer p, size_type n) noexcept {
-        if (p == nullptr || n == 0) return;
-        Pool& pool = get_pool();
-        size_t idx = p - pool.storage;
-        pool.free_list.push_back(idx);
-    }
-
-    template<typename U, typename... Args>
-    void construct(U* p, Args&&... args) {
-        ::new(static_cast<void*>(p)) U(std::forward<Args>(args)...);
-    }
-
-    template<typename U>
-    void destroy(U* p) {
-        p->~U();
-    }
-
-    template<typename U>
-    struct rebind {
-        using other = FixedAllocator<U, N>;
-    };
-
-    bool operator==(const FixedAllocator&) const { return true; }
-    bool operator!=(const FixedAllocator&) const { return false; }
+// Проверяем, что все типы в кортеже одинаковы
+template<typename Tuple>
+struct tuple_types_are_equal : std::false_type {};
+template<typename T>
+struct tuple_types_are_equal<std::tuple<T>> : std::true_type {};
+template<typename T, typename... Ts>
+struct tuple_types_are_equal<std::tuple<T, Ts...>> {
+    static constexpr bool value = std::conjunction_v<std::is_same<T, Ts>...>;
 };
 
-// ============================================================
-// Собственный контейнер (односвязный список) с аллокатором
-// ============================================================
-template<typename T, typename Allocator = std::allocator<T>>
-class MyContainer {
-public:
-    using value_type = T;
-    using allocator_type = Allocator;
-    using size_type = size_t;
+// Перегрузки функции print_ip
 
-private:
-    struct Node {
-        T value;
-        Node* next;
-    };
-
-    using NodeAllocator = typename std::allocator_traits<Allocator>::template rebind_alloc<Node>;
-    NodeAllocator node_alloc_;
-    Node* head_;
-    Node* tail_;
-    size_type size_;
-
-public:
-    MyContainer() : node_alloc_(), head_(nullptr), tail_(nullptr), size_(0) {}
-    explicit MyContainer(const Allocator& alloc) : node_alloc_(alloc), head_(nullptr), tail_(nullptr), size_(0) {}
-
-    ~MyContainer() {
-        clear();
+// 1. Для целочисленных типов
+template<typename T, typename std::enable_if<is_integer_for_ip<T>::value, int>::type = 0>
+void print_ip(const T& value) {
+    using U = std::make_unsigned_t<T>;
+    U val = static_cast<U>(value);
+    constexpr size_t bytes = sizeof(T);
+    for (size_t i = bytes; i > 0; --i) {
+        std::cout << static_cast<unsigned>((val >> (8 * (i - 1))) & 0xFF);
+        if (i > 1) std::cout << '.';
     }
+    std::cout << std::endl;
+}
 
-    void push_back(const T& value) {
-        Node* new_node = node_alloc_.allocate(1);
-        std::allocator_traits<NodeAllocator>::construct(node_alloc_, new_node, Node{value, nullptr});
-        if (tail_) {
-            tail_->next = new_node;
-            tail_ = new_node;
-        } else {
-            head_ = tail_ = new_node;
-        }
-        ++size_;
+// 2. Для строк
+template<typename T, typename std::enable_if<is_string<T>::value, int>::type = 0>
+void print_ip(const T& str) {
+    std::cout << str << std::endl;
+}
+
+// 3. Для контейнеров (исключая строки)
+template<typename T, typename std::enable_if<is_container<T>::value && !is_string<T>::value, int>::type = 0>
+void print_ip(const T& container) {
+    bool first = true;
+    for (const auto& elem : container) {
+        if (!first) std::cout << '.';
+        first = false;
+        std::cout << elem;
     }
+    std::cout << std::endl;
+}
 
-    size_type size() const { return size_; }
-    bool empty() const { return size_ == 0; }
-
-    class iterator {
-    public:
-        using iterator_category = std::forward_iterator_tag;
-        using value_type = T;
-        using difference_type = ptrdiff_t;
-        using pointer = T*;
-        using reference = T&;
-
-        iterator(Node* node) : node_(node) {}
-        reference operator*() const { return node_->value; }
-        pointer operator->() const { return &node_->value; }
-        iterator& operator++() { node_ = node_->next; return *this; }
-        iterator operator++(int) { iterator tmp = *this; ++(*this); return tmp; }
-        bool operator==(const iterator& other) const { return node_ == other.node_; }
-        bool operator!=(const iterator& other) const { return !(*this == other); }
-    private:
-        Node* node_;
-    };
-
-    iterator begin() { return iterator(head_); }
-    iterator end() { return iterator(nullptr); }
-
-private:
-    void clear() {
-        Node* cur = head_;
-        while (cur) {
-            Node* next = cur->next;
-            std::allocator_traits<NodeAllocator>::destroy(node_alloc_, cur);
-            node_alloc_.deallocate(cur, 1);
-            cur = next;
-        }
-        head_ = tail_ = nullptr;
-        size_ = 0;
-    }
-};
-
-int factorial(int n) {
-    int result = 1;
-    for (int i = 1; i <= n; ++i) result *= i;
-    return result;
+// 4. Для кортежей с одинаковыми типами
+template<typename T, typename std::enable_if<is_tuple<T>::value && tuple_types_are_equal<T>::value, int>::type = 0>
+void print_ip(const T& tup) {
+    [&]<std::size_t... I>(std::index_sequence<I...>) {
+        bool first = true;
+        ((std::cout << (first ? "" : ".") << std::get<I>(tup), first = false), ...);
+    }(std::make_index_sequence<std::tuple_size<T>::value>{});
+    std::cout << std::endl;
 }
 
 int main() {
-    // 1. std::map с обычным аллокатором
-    std::map<int, int> map1;
-    for (int i = 0; i < 10; ++i) map1[i] = factorial(i);
+    print_ip(int8_t{-1});                         // 255
+    print_ip(int16_t{0});                         // 0.0
+    print_ip(int32_t{2130706433});                // 127.0.0.1
+    print_ip(int64_t{8875824491850138409});       // 123.45.67.89.101.112.131.41
 
-    // 2. std::map с нашим аллокатором, ограниченным 11 элементами (учитываем служебный узел)
-    FixedAllocator<std::pair<const int, int>, 11> alloc;
-    std::map<int, int, std::less<int>, FixedAllocator<std::pair<const int, int>, 11>> map2(alloc);
-    for (int i = 0; i < 10; ++i) map2[i] = factorial(i);
+    print_ip(std::string{"Hello, World!"});       // Hello, World!
 
-    std::cout << "std::map with default allocator:\n";
-    for (const auto& p : map1) std::cout << p.first << " " << p.second << "\n";
+    print_ip(std::vector<int>{100, 200, 300, 400});   // 100.200.300.400
+    print_ip(std::list<short>{400, 300, 200, 100});   // 400.300.200.100
 
-    std::cout << "\nstd::map with FixedAllocator<11>:\n";
-    for (const auto& p : map2) std::cout << p.first << " " << p.second << "\n";
+    print_ip(std::make_tuple(123, 456, 789, 0));      // 123.456.789.0
 
-    // 3. Свой контейнер с обычным аллокатором
-    MyContainer<int> cont1;
-    for (int i = 0; i < 10; ++i) cont1.push_back(i);
-
-    // 4. Свой контейнер с нашим аллокатором для int (10 элементов)
-    FixedAllocator<int, 10> int_alloc;
-    MyContainer<int, FixedAllocator<int, 10>> cont2(int_alloc);
-    for (int i = 0; i < 10; ++i) cont2.push_back(i);
-
-    std::cout << "\nMyContainer with default allocator:\n";
-    for (auto val : cont1) std::cout << val << " ";
-    std::cout << "\n";
-
-    std::cout << "\nMyContainer with FixedAllocator<int,10>:\n";
-    for (auto val : cont2) std::cout << val << " ";
-    std::cout << "\n";
+    // print_ip(std::make_tuple(1, "two", 3.0)); // ошибка компиляции
 
     return 0;
 }
