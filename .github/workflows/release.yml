@@ -3,25 +3,38 @@ name: Build and Release
 on:
   push:
     tags:
-      - 'v*' # Сработает, когда ты создашь тег (например, v0.1.1)
+      - 'v*'
 
 jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pages: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build Package
+      - name: Build in Docker
         run: |
           docker build -t builder .
           docker create --name extractor builder
-          docker cp extractor:/output/. ./dist
-          
-      - name: Create Release
+          mkdir -p dist
+          # Копируем пакет
+          docker cp extractor:/output/. ./dist/
+          # Копируем документацию (путь внутри контейнера /build/html)
+          docker cp extractor:/build/html ./dist-docs
+          docker rm extractor
+
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           files: dist/*.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist-docs # Папка, которую мы вытащили из Docker
+          branch: gh-pages  # Ветка, где будет жить сайт
