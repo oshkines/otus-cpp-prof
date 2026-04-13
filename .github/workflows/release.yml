@@ -17,13 +17,23 @@ jobs:
 
       - name: Build in Docker
         run: |
+          # 1. Собираем образ
           docker build -t builder .
+          
+          # 2. Создаем временный контейнер для копирования файлов
           docker create --name extractor builder
+          
+          # 3. Подготавливаем папки на сервере GitHub
           mkdir -p dist
-          # Копируем пакет
+          
+          # 4. Копируем .deb пакет из папки /output контейнера
           docker cp extractor:/output/. ./dist/
-          # Копируем документацию (путь внутри контейнера /build/html)
-          docker cp extractor:/build/html ./dist-docs
+          
+          # 5. Копируем документацию. 
+          # Путь /build/docs/html так как в Doxyfile OUTPUT_DIRECTORY = docs
+          docker cp extractor:/build/docs/html/. ./dist-docs
+          
+          # 6. Удаляем контейнер
           docker rm extractor
 
       - name: Create GitHub Release
@@ -36,5 +46,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist-docs # Папка, которую мы вытащили из Docker
-          branch: gh-pages  # Ветка, где будет жить сайт
+          folder: dist-docs
+          branch: gh-pages
