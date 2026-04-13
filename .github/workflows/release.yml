@@ -1,42 +1,27 @@
-name: 'C++ CI'
+name: Build and Release
 
 on:
   push:
-    branches:
-      - main
-      - master
-      - feature/github_actions 
-  workflow_dispatch:
+    tags:
+      - 'v*' # Сработает, когда ты создашь тег (например, v0.1.1)
+
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: true
-      - run: sudo apt-get update && sudo apt-get install libboost-test-dev -y
-      - run: cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_BOOST_TEST=ON
-      - run: cmake --build .
-      # временно закоментировал
-      - run: cmake --build . --target test
-      - run: cmake --build . --target package
+      - uses: actions/checkout@v4
+
+      - name: Build Package
+        run: |
+          docker build -t builder .
+          docker create --name extractor builder
+          docker cp extractor:/output/. ./dist
+          
       - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/*.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
-          draft: false
-          prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./print_ip-0.0.${{ github.run_number }}-Linux.deb
-          asset_name: print_ip-0.0.${{ github.run_number }}-Linux.deb
-          asset_content_type: application/vnd.debian.binary-package

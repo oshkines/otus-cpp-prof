@@ -1,0 +1,11 @@
+Source: print-ip
+Section: utils
+Priority: optional
+Maintainer: Your Name <you@example.com>
+Build-Depends: debhelper-compat (= 13), cmake, g++
+
+Package: print-ip
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: My otus project
+  This is a student project for C++ course.

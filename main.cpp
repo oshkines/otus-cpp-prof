@@ -6,7 +6,6 @@
 #include <tuple>
 #include <utility>
 #include <cstdint>
-#include "lib.h"
 
 // Определяем, является ли тип целочисленным (исключаем bool)
 template<typename T>
