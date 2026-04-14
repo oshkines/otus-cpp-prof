@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['tuple_5ftypes_5fare_5fequal_0',['tuple_types_are_equal',['../structtuple__types__are__equal.html',1,'']]],
-  ['tuple_5ftypes_5fare_5fequal_3c_20std_3a_3atuple_3c_20t_20_3e_20_3e_1',['tuple_types_are_equal&lt; std::tuple&lt; T &gt; &gt;',['../structtuple__types__are__equal_3_01std_1_1tuple_3_01_t_01_4_01_4.html',1,'']]],
-  ['tuple_5ftypes_5fare_5fequal_3c_20std_3a_3atuple_3c_20t_2c_20ts_2e_2e_2e_20_3e_20_3e_2',['tuple_types_are_equal&lt; std::tuple&lt; T, Ts... &gt; &gt;',['../structtuple__types__are__equal_3_01std_1_1tuple_3_01_t_00_01_ts_8_8_8_01_4_01_4.html',1,'']]]
+  ['save_0',['save',['../classDocument.html#ada81e7c9de3657c2c297ebe244416e31',1,'Document']]],
+  ['setupconsole_1',['setupConsole',['../main_8cpp.html#a8196ab970ce52abe1854d7474f260534',1,'main.cpp']]],
+  ['shape_2',['Shape',['../classShape.html',1,'']]],
+  ['shape_2eh_3',['Shape.h',['../Shape_8h.html',1,'']]]
 ];

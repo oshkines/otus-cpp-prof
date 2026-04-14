@@ -1,5 +1,7 @@
 var files_dup =
 [
-    [ "build", "dir_4fef79e7177ba769987a8da36c892c5f.html", "dir_4fef79e7177ba769987a8da36c892c5f" ],
-    [ "main.cpp", "main_8cpp.html", "main_8cpp" ]
+    [ "Document.h", "Document_8h.html", "Document_8h" ],
+    [ "EditorController.h", "EditorController_8h.html", "EditorController_8h" ],
+    [ "main.cpp", "main_8cpp.html", "main_8cpp" ],
+    [ "Shape.h", "Shape_8h.html", "Shape_8h" ]
 ];
