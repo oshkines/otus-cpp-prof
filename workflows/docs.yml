@@ -14,6 +14,8 @@ jobs:
       run: sudo apt-get install -y doxygen graphviz
     - name: Generate Documentation
       run: doxygen Doxyfile
+    - name: Add .nojekyll
+      run: touch docs/.nojekyll    
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
