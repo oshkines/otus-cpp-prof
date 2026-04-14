@@ -1,22 +1,23 @@
-name: Deploy Doxygen Documentation
+    - name: Install Doxygen and Graphviz
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y doxygen graphviz
 
-on:
-  push:
-    branches: [ main ]
+    - name: Check dot version
+      # Эта команда покажет в логах, работает ли Graphviz вообще
+      run: dot -V 
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Install Doxygen
-      run: sudo apt-get install -y doxygen graphviz
     - name: Generate Documentation
       run: doxygen Doxyfile
+
+    - name: Check for generated images
+      # Это покажет, появились ли PNG файлы до деплоя
+      run: ls docs/html/*.png || echo "PNG FILES NOT FOUND"
+
     - name: Add .nojekyll
       run: touch ./docs/html/.nojekyll    
-    - name: Deploy to GitHub Pages
+
+    - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
