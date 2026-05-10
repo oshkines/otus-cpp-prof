@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['line_28',['Line',['../classLine.html',1,'']]]
+  ['rowproxy_0',['RowProxy',['../class_matrix_1_1_row_proxy.html',1,'Matrix']]]
 ];

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['importfromfile_13',['importFromFile',['../classEditorController.html#a3b8e1b00f301a5f8d0810ee1af5954be',1,'EditorController']]]
+  ['main_0',['main',['../main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main.cpp']]],
+  ['main_2ecpp_1',['main.cpp',['../main_8cpp.html',1,'']]],
+  ['matrix_2',['Matrix',['../class_matrix.html',1,'']]]
 ];

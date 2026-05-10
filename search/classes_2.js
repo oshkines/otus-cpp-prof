@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['editorcontroller_27',['EditorController',['../classEditorController.html',1,'']]]
+  ['matrix_0',['Matrix',['../class_matrix.html',1,'']]]
 ];

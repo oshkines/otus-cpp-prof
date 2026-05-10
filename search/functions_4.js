@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['getdoc_40',['getDoc',['../classEditorController.html#aa623f2c1629f261932116c5fabb3f2a9',1,'EditorController']]],
-  ['getshapes_41',['getShapes',['../classDocument.html#adbe29203df1ff42dc5e959762f5bacff',1,'Document']]]
+  ['iterator_0',['Iterator',['../class_matrix_1_1_iterator.html#ae35c38606faa97168f3d58c664b2884a',1,'Matrix::Iterator']]]
 ];

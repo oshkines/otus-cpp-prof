@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['circle_25',['Circle',['../classCircle.html',1,'']]]
+  ['cellproxy_0',['CellProxy',['../class_matrix_1_1_row_proxy_1_1_cell_proxy.html',1,'Matrix::RowProxy']]]
 ];
