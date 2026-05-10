@@ -1,10 +1,10 @@
-Source: editor
+Source: matrix
 Section: utils
 Priority: optional
 Maintainer: Your Name <you@example.com>
 Build-Depends: debhelper-compat (= 13), cmake, g++
 
-Package: editor
+Package: matrix
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: My otus project

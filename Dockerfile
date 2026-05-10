@@ -20,8 +20,8 @@ RUN doxygen Doxyfile
 # Команда ниже запустит процесс создания пакета из папки debian
 #RUN dpkg-buildpackage -b -us -uc
 #RUN mkdir -p /output
-#RUN dpkg-buildpackage -b -us -uc && cp /editor*.deb /output/
-#RUN dpkg-buildpackage -b -us -uc && cp ../editor*.deb /output/
+#RUN dpkg-buildpackage -b -us -uc && cp /matrix*.deb /output/
+#RUN dpkg-buildpackage -b -us -uc && cp ../matrix*.deb /output/
 # Пакет окажется на уровень выше, в / (корне) или в /build_parent
 
 # Устанавливаем дополнительные утилиты для исправления строк
@@ -36,5 +36,5 @@ RUN dos2unix debian/rules && \
     mkdir -p /output
 
 # Запускаем сборку
-RUN dpkg-buildpackage -b -us -uc && cp ../editor*.deb /output/
+RUN dpkg-buildpackage -b -us -uc && cp ../matrix*.deb /output/
 

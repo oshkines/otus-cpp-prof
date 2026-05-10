@@ -42,7 +42,7 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and in a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME           = "Editor"
+PROJECT_NAME           = "Matrix"
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -2293,7 +2293,7 @@ LATEX_EMOJI_DIRECTORY  =
 
 # If the GENERATE_RTF tag is set to YES, Doxygen will generate RTF output. The
 # RTF output is optimized for Word 97 and may not look too pretty with other RTF
-# readers/editors.
+# readers/editeditors.
 # The default value is: NO.
 
 GENERATE_RTF           = NO
