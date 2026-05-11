@@ -4,8 +4,6 @@
 **/build/
 **/debug/
 **/release/
-html/
-latex/
 *.deb
 dist/
 output/
