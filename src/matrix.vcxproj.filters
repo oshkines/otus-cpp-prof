@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\Soft\_C++ Course\Prof\Lesson15\HomeWork\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Soft\_C++ Course\Prof\Lesson15\HomeWork\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{2819DC7C-1740-3C35-90B8-04D167AF4760}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
