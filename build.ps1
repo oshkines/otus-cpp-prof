@@ -53,7 +53,7 @@ if ([string]::IsNullOrWhiteSpace($commitMessage)) {
 Write-Host "Budet ispolzovano soobshenie: $commitMessage" -ForegroundColor Green
 
 # 6. Добавление файлов в Git
-Write-Host "[6/8] Dobavlenie failov v Git..." -ForegroundColor Yellow
+Write-Host "[6/9] Dobavlenie failov v Git..." -ForegroundColor Yellow
 git add .
 
 if ($LASTEXITCODE -ne 0) {
@@ -63,7 +63,7 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host "Faili dobavleny" -ForegroundColor Green
 
 # 7. Коммит
-Write-Host "[7/8] Sozdanie kommitu..." -ForegroundColor Yellow
+Write-Host "[7/9] Sozdanie kommitu..." -ForegroundColor Yellow
 git commit -m "$commitMessage"
 
 if ($LASTEXITCODE -ne 0) {
@@ -73,7 +73,7 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host "Kommit sozdan" -ForegroundColor Green
 
 # 8. Публикация на GitHub
-Write-Host "[8/8] Publikacia na GitHub..." -ForegroundColor Yellow
+Write-Host "[8/9] Publikacia na GitHub..." -ForegroundColor Yellow
 git push origin main
 
 if ($LASTEXITCODE -ne 0) {
@@ -81,6 +81,17 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 Write-Host "Izmenenia otpravleny v repozitorny" -ForegroundColor Green
+
+# 9. Создание тега
+Write-Host "[9/9] Sozdanie tega..." -ForegroundColor Yellow
+git tag v0.2.0
+git push origin v0.2.0
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Oshibka pri sozdanii tega!" -ForegroundColor Red
+    exit 1
+}
+Write-Host "Tag v0.2.0 sozdan i otpravlen" -ForegroundColor Green
 
 Write-Host "============================================================" -ForegroundColor Cyan
 Write-Host "SBORKA I PUBLIKACIA ZAVERSHENY USpeshno!" -ForegroundColor Green
