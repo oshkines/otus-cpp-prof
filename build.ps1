@@ -94,14 +94,14 @@ Write-Host "Izmenenia otpravleny v repozitorny" -ForegroundColor Green
 
 # 10. Создание тега
 Write-Host "[9/10] Sozdanie tega..." -ForegroundColor Yellow
-git tag v0.2.0
-git push origin v0.2.0
+git tag v0.4.1
+git push origin v0.4.1
 
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Oshibka pri sozdanii tega!" -ForegroundColor Red
     exit 1
 }
-Write-Host "Tag v0.2.0 sozdan i otpravlen" -ForegroundColor Green
+Write-Host "Tag v0.4.1 sozdan i otpravlen" -ForegroundColor Green
 
 Write-Host "============================================================" -ForegroundColor Cyan
 Write-Host "SBORKA I PUBLIKACIA ZAVERSHENY USpeshno!" -ForegroundColor Green
