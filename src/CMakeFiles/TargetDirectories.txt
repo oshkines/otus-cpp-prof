@@ -1,3 +1,0 @@
-D:/Soft/_C++ Course/Prof/Lesson15/HomeWork/src/CMakeFiles/matrix.dir
-D:/Soft/_C++ Course/Prof/Lesson15/HomeWork/src/CMakeFiles/ALL_BUILD.dir
-D:/Soft/_C++ Course/Prof/Lesson15/HomeWork/src/CMakeFiles/ZERO_CHECK.dir

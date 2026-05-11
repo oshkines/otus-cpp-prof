@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\Soft\_C++ Course\Prof\Lesson18\HomeWork\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Soft\_C++ Course\Prof\Lesson18\HomeWork\src\CommandReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Soft\_C++ Course\Prof\Lesson18\HomeWork\src\BlockProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Soft\_C++ Course\Prof\Lesson18\HomeWork\src\BlockHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Soft\_C++ Course\Prof\Lesson18\HomeWork\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{6F92842E-6AFE-312E-94F0-53A9ACC1A2AE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

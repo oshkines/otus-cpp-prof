@@ -1,5 +1,5 @@
-matrix (0.1.0) unstable; urgency=low
+bulk (0.4.1) unstable; urgency=medium
 
   * Initial release.
 
- -- Your Name <oshkines@mail.ru>  Sun, 10 May 2026 12:03:15 +0300
+ -- oshkines <oshkines@mail.ru>  Mon, 11 May 2026 15:06:42 +0300

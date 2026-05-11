@@ -1,11 +1,13 @@
-Source: matrix
+Source: bulk
 Section: utils
 Priority: optional
-Maintainer: Your Name <you@example.com>
+Maintainer: oshkines <oshkines@mail.ru>
 Build-Depends: debhelper-compat (= 13), cmake, g++
 
-Package: matrix
+Package: bulk
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: My otus project
-  This is a student project for C++ course.
+Description: bulk – парсер пакетных команд
+ Утилита для группировки команд в блоки фиксированного
+ и динамического размера с выводом в консоль и сохранением в файлы.
+ This is a student project for C++ course.

@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+
+# Экспорт переменных из CMake
+export PROJECT_NAME = @PROJECT_NAME@
+
+%:
+	dh	$@
+
+override_dh_auto_configure:
+	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release
+
+override_dh_auto_install:
+	dh_auto_install	

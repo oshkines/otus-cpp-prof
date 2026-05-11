@@ -1,54 +1,35 @@
-#include "matrix.hpp"
+#include "CommandReader.hpp"
+#include "BlockProcessor.hpp"
+#include "BlockHandler.hpp"
 #include <iostream>
+#include <memory>
+#include <cstdlib>
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
-int main() {
-    // Настройка кодировки для Windows
-    #ifdef _WIN32
-        SetConsoleOutputCP(CP_UTF8);
-        SetConsoleCP(CP_UTF8);
-    #endif
-
-    // Создаём матрицу с типом int и значением по умолчанию 0
-    Matrix<int, 0> matrix;
-
-    // Заполнение главной диагонали [0,0]..[9,9] значениями от 0 до 9
-    for (int i = 0; i < 10; ++i) {
-        matrix[i][i] = i;
+int main(int argc, char* argv[]) {
+    if (argc != 2) {
+        std::cerr << "Usage: bulk <N>" << std::endl;
+        return 1;
     }
 
-    // Заполнение второстепенной диагонали [0,9]..[9,0] значениями от 9 до 0
-    for (int i = 0; i < 10; ++i) {
-        matrix[i][9 - i] = 9 - i;
+    size_t blockSize = std::atoi(argv[1]);
+    if (blockSize == 0) {
+        std::cerr << "Invalid block size" << std::endl;
+        return 1;
     }
 
-    // Вывод фрагмента от [1,1] до [8,8]
-    std::cout << "Фрагмент матрицы [1,1]..[8,8]:\n";
-    for (int i = 1; i <= 8; ++i) {
-        for (int j = 1; j <= 8; ++j) {
-            std::cout << matrix[i][j] << " ";
-        }
-        std::cout << "\n";
-    }
+    BlockProcessor processor(blockSize);
+    auto handler = std::make_shared<BlockHandler>();
+    processor.addObserver(handler);
 
-    // Количество занятых ячеек
-    std::cout << "\nКоличество занятых ячеек: " << matrix.size() << "\n";
+    CommandReader reader;
+    reader.setCallback([&processor](const std::string& cmd) {
+        processor.processCommand(cmd);
+    });
 
-    // Вывод всех занятых ячеек
-    std::cout << "\nЗанятые ячейки (x y value):\n";
-    for (const auto& cell : matrix) {
-        int x, y, value;
-        std::tie(x, y, value) = cell;
-        std::cout << x << " " << y << " " << value << "\n";
-    }
+    reader.run();
 
-    // Проверка каскадного присваивания
-    Matrix<int, 0> m;
-    ((m[10][20] = 5) = 6) = 7;
-    std::cout << "\nm[10][20] = " << m[10][20] << " (должно быть 7)\n";
+    // После окончания ввода – принудительно завершаем текущий блок
+    processor.flush();
 
     return 0;
 }

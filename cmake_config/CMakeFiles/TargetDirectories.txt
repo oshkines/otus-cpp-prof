@@ -1,0 +1,3 @@
+D:/Soft/_C++ Course/Prof/Lesson18/HomeWork/cmake_config/CMakeFiles/bulk.dir
+D:/Soft/_C++ Course/Prof/Lesson18/HomeWork/cmake_config/CMakeFiles/ALL_BUILD.dir
+D:/Soft/_C++ Course/Prof/Lesson18/HomeWork/cmake_config/CMakeFiles/ZERO_CHECK.dir
