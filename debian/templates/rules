@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 # Экспорт переменных из CMake
-export PROJECT_NAME = bulk
+export PROJECT_NAME = @PROJECT_NAME@
 
 %:
 	dh	$@

@@ -9,3 +9,4 @@ latex/
 *.deb
 dist/
 output/
+*.pdb

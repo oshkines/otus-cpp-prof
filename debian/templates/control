@@ -1,13 +1,13 @@
-Source: bulk
+Source: @PROJECT_NAME@
 Section: utils
 Priority: optional
 Maintainer: oshkines <oshkines@mail.ru>
 Build-Depends: debhelper-compat (= 13), cmake, g++
 
-Package: bulk
+Package: @PROJECT_NAME@
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: bulk – парсер пакетных команд
+Description: @PROJECT_NAME@ – парсер пакетных команд
  Утилита для группировки команд в блоки фиксированного
  и динамического размера с выводом в консоль и сохранением в файлы.
  This is a student project for C++ course.
