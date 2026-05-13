@@ -11,11 +11,12 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    size_t blockSize = std::atoi(argv[1]);
-    if (blockSize == 0) {
-        std::cerr << "Invalid block size" << std::endl;
+    int blockSizeInt = std::atoi(argv[1]);
+    if (blockSizeInt <= 0) {
+        std::cerr << "Error: block size must be a positive integer." << std::endl;
         return 1;
     }
+    size_t blockSize = static_cast<size_t>(blockSizeInt);
 
     BlockProcessor processor(blockSize);
     auto handler = std::make_shared<BlockHandler>();
