@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Bulk – парсер пакетных команд: src/main.cpp File Reference</title>
+<title>bayan: src/main.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -30,7 +30,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Bulk – парсер пакетных команд<span id="projectnumber">&#160;0.4.1</span>
+   <div id="projectname">bayan<span id="projectnumber">&#160;0.4.3</span>
    </div>
   </td>
  </tr>
@@ -118,55 +118,50 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('main_8cpp.html
   <div class="headertitle"><div class="title">main.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="_command_reader_8hpp_source.html">CommandReader.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_block_processor_8hpp_source.html">BlockProcessor.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_block_handler_8hpp_source.html">BlockHandler.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="_options_8hpp_source.html">Options.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_duplicate_finder_8hpp_source.html">DuplicateFinder.hpp</a>&quot;</code><br />
+<code>#include &lt;boost/filesystem.hpp&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;cstdlib&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for main.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp__incl.png" border="0" usemap="#asrc_2main_8cpp" loading="lazy" alt=""/></div>
 <map name="asrc_2main_8cpp" id="asrc_2main_8cpp">
-<area shape="rect" title=" " alt="" coords="527,5,624,32"/>
-<area shape="rect" href="_command_reader_8hpp.html" title=" " alt="" coords="5,155,154,181"/>
-<area shape="poly" title=" " alt="" coords="525,28,419,51,292,83,199,116,121,150,118,145,197,111,291,77,418,45,530,27"/>
-<area shape="rect" href="_block_processor_8hpp.html" title=" " alt="" coords="453,80,591,107"/>
-<area shape="poly" title=" " alt="" coords="568,31,542,70,539,65,564,34"/>
-<area shape="rect" title=" " alt="" coords="611,155,679,181"/>
-<area shape="poly" title=" " alt="" coords="583,30,635,141,630,140,580,35"/>
-<area shape="rect" href="_block_handler_8hpp.html" title=" " alt="" coords="304,80,428,107"/>
-<area shape="poly" title=" " alt="" coords="537,34,418,77,416,72,542,32"/>
-<area shape="rect" title=" " alt="" coords="666,80,738,107"/>
-<area shape="poly" title=" " alt="" coords="598,30,670,72,664,72,597,35"/>
-<area shape="rect" title=" " alt="" coords="762,80,821,107"/>
-<area shape="poly" title=" " alt="" coords="613,30,750,77,744,77,613,35"/>
-<area shape="rect" title=" " alt="" coords="191,229,248,256"/>
-<area shape="poly" title=" " alt="" coords="105,179,184,221,179,223,103,184"/>
-<area shape="rect" title=" " alt="" coords="41,229,118,256"/>
-<area shape="poly" title=" " alt="" coords="81,180,82,214,77,213,78,184"/>
-<area shape="rect" title=" " alt="" coords="301,229,354,256"/>
-<area shape="poly" title=" " alt="" coords="123,179,288,227,284,231,122,185"/>
-<area shape="poly" title=" " alt="" coords="450,108,387,128,319,157,277,187,242,220,239,216,273,183,317,152,385,123,455,106"/>
-<area shape="poly" title=" " alt="" coords="516,106,488,145,448,183,409,209,369,228,368,223,406,204,445,179,484,141,511,109"/>
-<area shape="poly" title=" " alt="" coords="544,105,613,147,607,146,543,110"/>
-<area shape="rect" title=" " alt="" coords="445,229,498,256"/>
-<area shape="poly" title=" " alt="" coords="531,105,545,141,548,162,543,182,528,205,508,223,506,218,524,201,538,180,543,161,540,142,528,109"/>
-<area shape="rect" href="_i_observer_8hpp.html" title=" " alt="" coords="330,155,434,181"/>
-<area shape="poly" title=" " alt="" coords="500,106,421,149,419,145,495,108"/>
-<area shape="poly" title=" " alt="" coords="356,181,263,225,261,220,351,182"/>
-<area shape="poly" title=" " alt="" coords="375,181,348,219,345,215,370,183"/>
-<area shape="poly" title=" " alt="" coords="399,179,447,220,442,219,397,184"/>
-<area shape="poly" title=" " alt="" coords="356,107,244,220,241,216,351,108"/>
-<area shape="poly" title=" " alt="" coords="354,106,335,130,321,156,317,186,321,216,317,214,312,186,316,154,331,127,349,109"/>
-<area shape="poly" title=" " alt="" coords="391,105,421,125,448,153,463,183,470,216,466,213,458,185,444,156,418,129,390,110"/>
-<area shape="poly" title=" " alt="" coords="370,105,379,141,374,138,368,109"/>
+<area shape="rect" title=" " alt="" coords="342,5,439,32"/>
+<area shape="rect" href="_options_8hpp.html" title=" " alt="" coords="130,155,222,181"/>
+<area shape="poly" title=" " alt="" coords="339,31,286,50,257,64,231,82,206,111,188,142,184,139,202,108,227,78,254,60,284,45,344,28"/>
+<area shape="rect" href="_duplicate_finder_8hpp.html" title=" " alt="" coords="240,80,378,107"/>
+<area shape="poly" title=" " alt="" coords="379,31,336,72,333,68,374,34"/>
+<area shape="rect" title=" " alt="" coords="402,80,544,107"/>
+<area shape="poly" title=" " alt="" coords="405,30,450,70,445,70,404,35"/>
+<area shape="rect" title=" " alt="" coords="568,80,640,107"/>
+<area shape="poly" title=" " alt="" coords="428,30,556,75,551,76,427,35"/>
+<area shape="rect" title=" " alt="" coords="5,229,184,256"/>
+<area shape="poly" title=" " alt="" coords="164,181,121,221,118,217,159,183"/>
+<area shape="rect" title=" " alt="" coords="208,229,261,256"/>
+<area shape="poly" title=" " alt="" coords="187,179,217,217,212,217,185,184"/>
+<area shape="rect" title=" " alt="" coords="286,229,343,256"/>
+<area shape="poly" title=" " alt="" coords="201,179,279,221,274,222,199,184"/>
+<area shape="poly" title=" " alt="" coords="305,106,250,217,246,214,300,108"/>
+<area shape="poly" title=" " alt="" coords="312,105,316,215,311,213,308,109"/>
+<area shape="rect" href="_file_hasher_8hpp.html" title=" " alt="" coords="346,155,456,181"/>
+<area shape="poly" title=" " alt="" coords="326,105,376,145,371,145,325,110"/>
+<area shape="rect" title=" " alt="" coords="479,155,526,181"/>
+<area shape="poly" title=" " alt="" coords="343,105,468,152,462,153,343,110"/>
+<area shape="poly" title=" " alt="" coords="375,181,276,226,275,221,370,182"/>
+<area shape="poly" title=" " alt="" coords="389,181,342,222,340,217,384,183"/>
+<area shape="rect" title=" " alt="" coords="367,229,427,256"/>
+<area shape="poly" title=" " alt="" coords="402,180,401,215,397,212,399,184"/>
+<area shape="rect" title=" " alt="" coords="451,229,519,256"/>
+<area shape="poly" title=" " alt="" coords="417,179,462,220,457,218,415,184"/>
+<area shape="rect" title=" " alt="" coords="543,229,608,256"/>
+<area shape="poly" title=" " alt="" coords="432,179,534,223,528,223,431,184"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a2e88153daf9a83f30c1f0d58ab3e512d" id="r_a2e88153daf9a83f30c1f0d58ab3e512d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2e88153daf9a83f30c1f0d58ab3e512d">scanDirectory</a> (const fs::path &amp;dir, const <a class="el" href="struct_options.html">Options</a> &amp;opt, <a class="el" href="class_duplicate_finder.html">DuplicateFinder</a> &amp;finder, int currentDepth)</td></tr>
 <tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97" id="r_a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0ddf1224851353fc92bfbff6f499fa97">main</a> (int argc, char *argv[])</td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
@@ -185,6 +180,37 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>argv</em></span>[]&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2e88153daf9a83f30c1f0d58ab3e512d" name="a2e88153daf9a83f30c1f0d58ab3e512d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e88153daf9a83f30c1f0d58ab3e512d">&#9670;&#160;</a></span>scanDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void scanDirectory </td>
+          <td>(</td>
+          <td class="paramtype">const fs::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dir</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_options.html">Options</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>opt</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_duplicate_finder.html">DuplicateFinder</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>finder</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>currentDepth</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

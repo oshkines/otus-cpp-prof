@@ -1,11 +1,9 @@
 \doxysection{src/\+main.cpp File Reference}
 \hypertarget{main_8cpp}{}\label{main_8cpp}\index{src/main.cpp@{src/main.cpp}}
-{\ttfamily \+\#include "{}Command\+Reader.\+hpp"{}}\newline
-{\ttfamily \+\#include "{}Block\+Processor.\+hpp"{}}\newline
-{\ttfamily \+\#include "{}Block\+Handler.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}Options.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}Duplicate\+Finder.\+hpp"{}}\newline
+{\ttfamily \+\#include $<$boost/\+filesystem.\+hpp$>$}\newline
 {\ttfamily \+\#include $<$iostream$>$}\newline
-{\ttfamily \+\#include $<$memory$>$}\newline
-{\ttfamily \+\#include $<$cstdlib$>$}\newline
 Include dependency graph for main.\+cpp:\+\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -15,6 +13,8 @@ Include dependency graph for main.\+cpp:\+\nopagebreak
 \end{figure}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{main_8cpp_a2e88153daf9a83f30c1f0d58ab3e512d}{scan\+Directory}} (const fs::\+path \&dir, const \doxymbox{\hyperlink{struct_options}{Options}} \&opt, \doxymbox{\hyperlink{class_duplicate_finder}{Duplicate\+Finder}} \&finder, int current\+Depth)
 \item 
 int \doxymbox{\hyperlink{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\+[$\,$]\+)
 \end{DoxyCompactItemize}
@@ -28,4 +28,10 @@ int \doxymbox{\hyperlink{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (in
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily \label{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97} 
 int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{argv}{\+[$\,$]\+}\end{DoxyParamCaption})}
+
+\Hypertarget{main_8cpp_a2e88153daf9a83f30c1f0d58ab3e512d}\index{main.cpp@{main.cpp}!scanDirectory@{scanDirectory}}
+\index{scanDirectory@{scanDirectory}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{scanDirectory()}{scanDirectory()}}
+{\footnotesize\ttfamily \label{main_8cpp_a2e88153daf9a83f30c1f0d58ab3e512d} 
+void scan\+Directory (\begin{DoxyParamCaption}\item[{const fs::\+path \&}]{dir}{, }\item[{const \doxymbox{\hyperlink{struct_options}{Options}} \&}]{opt}{, }\item[{\doxymbox{\hyperlink{class_duplicate_finder}{Duplicate\+Finder}} \&}]{finder}{, }\item[{int}]{current\+Depth}{}\end{DoxyParamCaption})}
 

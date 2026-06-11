@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['oncommandsready_0',['onCommandsReady',['../class_block_handler.html#ab73a4b54c5244c83b3aefcc43eb44e53',1,'BlockHandler::onCommandsReady()'],['../class_i_observer.html#a55e6c503527c9984403c9d2502e69c00',1,'IObserver::onCommandsReady()']]]
+  ['getfullhashseq_0',['getFullHashSeq',['../class_file_hasher.html#aca64c57fee4cd33d9b3f73d38861d126',1,'FileHasher']]],
+  ['getpath_1',['getPath',['../class_file_hasher.html#a7856255da54ea59d0011c99f66526e5e',1,'FileHasher']]]
 ];

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['processcommand_0',['processCommand',['../class_block_processor.html#a63ad5e8abf40105654686e8e0eb1e5b2',1,'BlockProcessor']]]
+  ['hash_5falgo_0',['hash_algo',['../struct_options.html#a881f80d06fe7b90c58485b9bc011fdda',1,'Options']]],
+  ['hashseq_1',['HashSeq',['../class_duplicate_finder.html#a2d748f4dd483c247a6262bd4b929069f',1,'DuplicateFinder::HashSeq'],['../class_file_hasher.html#a60a20c1107ac7f12073efd9c95d04e8d',1,'FileHasher::HashSeq']]],
+  ['hashvalue_2',['HashValue',['../class_file_hasher.html#a12c0f12314f9b5a459e932a582265f2a',1,'FileHasher']]]
 ];

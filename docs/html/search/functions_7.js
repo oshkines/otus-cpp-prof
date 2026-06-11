@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['setcallback_0',['setCallback',['../class_command_reader.html#a34ce3d2a7287e17b68e43f967e467948',1,'CommandReader']]]
+  ['_7efilehasher_0',['~FileHasher',['../class_file_hasher.html#af5a7ab0caf6b807e7fa559e0f7a4713b',1,'FileHasher']]]
 ];

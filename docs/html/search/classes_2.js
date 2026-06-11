@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['iobserver_0',['IObserver',['../class_i_observer.html',1,'']]]
+  ['options_0',['Options',['../struct_options.html',1,'']]]
 ];

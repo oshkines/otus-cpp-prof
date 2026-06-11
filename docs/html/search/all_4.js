@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['iobserver_0',['IObserver',['../class_i_observer.html',1,'']]],
-  ['iobserver_2ehpp_1',['IObserver.hpp',['../_i_observer_8hpp.html',1,'']]]
+  ['exclude_0',['exclude',['../struct_options.html#a08fd151fff6280c24d7f27d32ab15e32',1,'Options']]]
 ];
