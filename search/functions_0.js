@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['addobserver_0',['addObserver',['../class_block_processor.html#aa2213b99f83b7ecba72400a55dae3dfc',1,'BlockProcessor']]]
+  ['addfile_40',['addFile',['../classDuplicateFinder.html#ae68d9c1da02b115c4a2a6c7853b126d8',1,'DuplicateFinder']]]
 ];

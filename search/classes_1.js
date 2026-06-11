@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['commandreader_0',['CommandReader',['../class_command_reader.html',1,'']]]
+  ['filehasher_31',['FileHasher',['../classFileHasher.html',1,'']]]
 ];

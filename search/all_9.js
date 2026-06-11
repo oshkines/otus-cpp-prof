@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['setcallback_0',['setCallback',['../class_command_reader.html#a34ce3d2a7287e17b68e43f967e467948',1,'CommandReader']]]
+  ['options_22',['Options',['../structOptions.html',1,'']]],
+  ['options_2ecpp_23',['Options.cpp',['../Options_8cpp.html',1,'']]],
+  ['options_2ehpp_24',['Options.hpp',['../Options_8hpp.html',1,'']]]
 ];

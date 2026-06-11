@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['callback_0',['Callback',['../class_command_reader.html#a30b7edccd177acea5f6b514fd36850e1',1,'CommandReader']]],
-  ['commandreader_1',['CommandReader',['../class_command_reader.html',1,'']]],
-  ['commandreader_2ecpp_2',['CommandReader.cpp',['../_command_reader_8cpp.html',1,'']]],
-  ['commandreader_2ehpp_3',['CommandReader.hpp',['../_command_reader_8hpp.html',1,'']]]
+  ['clear_2',['clear',['../classDuplicateFinder.html#a40290cfe537e664d314d0f72ef6b4246',1,'DuplicateFinder']]],
+  ['compareto_3',['compareTo',['../classFileHasher.html#abe4985de1b26c81d970df21cd325e4d2',1,'FileHasher']]]
 ];
