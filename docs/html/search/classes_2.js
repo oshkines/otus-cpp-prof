@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['options_0',['Options',['../struct_options.html',1,'']]]
+  ['dispatcher_0',['Dispatcher',['../classasync_1_1_dispatcher.html',1,'async']]]
 ];

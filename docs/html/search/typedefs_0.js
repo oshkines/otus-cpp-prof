@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['hashseq_0',['HashSeq',['../class_duplicate_finder.html#a2d748f4dd483c247a6262bd4b929069f',1,'DuplicateFinder::HashSeq'],['../class_file_hasher.html#a60a20c1107ac7f12073efd9c95d04e8d',1,'FileHasher::HashSeq']]],
-  ['hashvalue_1',['HashValue',['../class_file_hasher.html#a12c0f12314f9b5a459e932a582265f2a',1,'FileHasher']]]
+  ['callback_0',['Callback',['../class_command_reader.html#a30b7edccd177acea5f6b514fd36850e1',1,'CommandReader']]]
 ];

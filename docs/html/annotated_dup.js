@@ -1,6 +1,9 @@
 var annotated_dup =
 [
-    [ "DuplicateFinder", "class_duplicate_finder.html", "class_duplicate_finder" ],
-    [ "FileHasher", "class_file_hasher.html", "class_file_hasher" ],
-    [ "Options", "struct_options.html", "struct_options" ]
+    [ "async", "namespaceasync.html", [
+      [ "CommandBlock", "structasync_1_1_command_block.html", "structasync_1_1_command_block" ],
+      [ "BlockingQueue", "classasync_1_1_blocking_queue.html", "classasync_1_1_blocking_queue" ],
+      [ "Dispatcher", "classasync_1_1_dispatcher.html", "classasync_1_1_dispatcher" ],
+      [ "Context", "classasync_1_1_context.html", "classasync_1_1_context" ]
+    ] ]
 ];

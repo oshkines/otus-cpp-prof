@@ -1,13 +1,14 @@
-Source: bayan
-Section: utils
+Source: async
+Section: libs
 Priority: optional
 Maintainer: oshkines <oshkines@mail.ru>
-Build-Depends: debhelper-compat (=13), cmake, libboost-filesystem-dev, libboost-system-dev, libboost-program-options-dev
+Build-Depends: debhelper-compat (= 13), cmake, g++
 Standards-Version: 4.6.0
 
-Package: bayan
+Package: async
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: duplicate file finder
- bayan scans directories and finds identical files by content.
- Additional description lines must start with a space.
+Description: async – пбиблиотека для асинхронной обработки команд
+ Библиотека предоставляет функции connect, receive, disconnect
+ для многопоточной группировки команд в блоки с выводом в консоль и файлы.
+ This is a student project for C++ course.
