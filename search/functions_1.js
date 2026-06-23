@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['clear_41',['clear',['../classDuplicateFinder.html#a40290cfe537e664d314d0f72ef6b4246',1,'DuplicateFinder']]],
-  ['compareto_42',['compareTo',['../classFileHasher.html#abe4985de1b26c81d970df21cd325e4d2',1,'FileHasher']]]
+  ['disconnect_0',['disconnect',['../namespaceasync.html#a3d2992b14fc8507d12148f6dc03d2806',1,'async']]]
 ];
