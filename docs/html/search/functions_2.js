@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['empty_0',['empty',['../classasync_1_1_blocking_queue.html#ad5a9f5262d91951c8f50fae89d497129',1,'async::BlockingQueue']]]
+  ['disconnect_0',['disconnect',['../namespaceasync.html#a06a20899f877f7f9d300a074eca0ce87',1,'async']]]
 ];

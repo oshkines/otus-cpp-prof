@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['async_0',['async',['../namespaceasync.html',1,'']]],
-  ['async_2ecpp_1',['async.cpp',['../async_8cpp.html',1,'']]],
-  ['async_2eh_2',['async.h',['../async_8h.html',1,'']]],
-  ['async_5fapi_3',['ASYNC_API',['../async_8h.html#afbb5dcc4834a212fa8924252c42b279d',1,'async.h']]]
+  ['addcommand_0',['addCommand',['../classasync_1_1_static_pool_manager.html#ae2a6a41c566a9fff4821883773d0419b',1,'async::StaticPoolManager']]],
+  ['async_1',['async',['../namespaceasync.html',1,'']]],
+  ['async_2ecpp_2',['async.cpp',['../async_8cpp.html',1,'']]],
+  ['async_2eh_3',['async.h',['../async_8h.html',1,'']]]
 ];

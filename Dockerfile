@@ -1,40 +1,27 @@
 FROM ubuntu:22.04
 
-# Ставим зависимости: компилятор, cmake, doxygen и инструменты сборки пакетов
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
     doxygen \
-	graphviz \
+    graphviz \
     devscripts \
     debhelper \
+    dos2unix \
+    libboost-system-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build
 COPY . .
 
-# 1. Генерируем документацию
-RUN doxygen Doxyfile
+RUN doxygen Doxyfile || echo "Doxygen warnings ignored"
 
-# 2. Собираем проект и упаковываем в .deb
-# Команда ниже запустит процесс создания пакета из папки debian
-#RUN dpkg-buildpackage -b -us -uc
-#RUN mkdir -p /output
-#RUN dpkg-buildpackage -b -us -uc && cp /*.deb /output/
-#RUN dpkg-buildpackage -b -us -uc && cp ../*.deb /output/
-# Пакет окажется на уровень выше, в / (корне) или в /build_parent
+RUN find debian -type f -exec dos2unix {} \; || true
 
-# Устанавливаем дополнительные утилиты для исправления строк
-RUN apt-get update && apt-get install -y dos2unix
+RUN chmod +x debian/rules
 
-WORKDIR /build
-COPY . .
+RUN dpkg-buildpackage -b -us -uc
 
-# Исправляем концы строк, права доступа и создаем папку для вывода
-RUN dos2unix debian/rules && \
-    chmod +x debian/rules && \
-    mkdir -p /output
+RUN mkdir -p /output && cp /*.deb /output/
 
-# Запускаем сборку
-RUN dpkg-buildpackage -b -us -uc && cp ../*.deb /output/
-
+VOLUME /output

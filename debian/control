@@ -1,14 +1,14 @@
-Source: async
+Source: bulk-server
 Section: libs
 Priority: optional
 Maintainer: oshkines <oshkines@mail.ru>
 Build-Depends: debhelper-compat (= 13), cmake, g++
 Standards-Version: 4.6.0
 
-Package: async
+Package: bulk-server
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: async – пбиблиотека для асинхронной обработки команд
- Библиотека предоставляет функции connect, receive, disconnect
- для многопоточной группировки команд в блоки с выводом в консоль и файлы.
+Description: bulk-server – асинхронный сервер для пакетной обработки команд по сети
+ Сервер принимает команды по TCP, группирует их в статические
+ и динамические блоки, выводит в консоль и сохраняет в файлы.
  This is a student project for C++ course.

@@ -8,7 +8,7 @@ Standards-Version: 4.6.0
 Package: @PROJECT_NAME@
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: @PROJECT_NAME@ – пбиблиотека для асинхронной обработки команд
- Библиотека предоставляет функции connect, receive, disconnect
- для многопоточной группировки команд в блоки с выводом в консоль и файлы.
+Description: @PROJECT_NAME@ – асинхронный сервер для пакетной обработки команд по сети
+ Сервер принимает команды по TCP, группирует их в статические
+ и динамические блоки, выводит в консоль и сохраняет в файлы.
  This is a student project for C++ course.

@@ -14,11 +14,11 @@
 
 namespace async {
 
-    // ---------- Вспомогательные структуры ----------
+    // ---------- Структура блока команд ----------
     struct CommandBlock {
         std::vector<std::string> commands;
         std::time_t timestamp;
-        std::string suffix; // "_1" или "_2" для файлов
+        std::string suffix;
     };
 
     // ---------- Потокобезопасная очередь ----------
@@ -35,7 +35,7 @@ namespace async {
             std::unique_lock<std::mutex> lock(mutex_);
             cond_.wait(lock, [this] { return !queue_.empty() || stop_; });
             if (stop_ && queue_.empty())
-                return T{}; // возвращаем пустой объект (будет обработан)
+                return T{};
             T value = std::move(queue_.front());
             queue_.pop();
             return value;
@@ -59,7 +59,7 @@ namespace async {
         bool stop_ = false;
     };
 
-    // ---------- Диспетчер (синглтон) ----------
+    // ---------- Диспетчер вывода (синглтон) ----------
     class Dispatcher {
     public:
         static Dispatcher* get() {
@@ -98,9 +98,8 @@ namespace async {
             while (true) {
                 CommandBlock block = console_queue_.pop();
                 if (block.commands.empty() && console_queue_.empty())
-                    break; // остановка
+                    break;
                 if (!block.commands.empty()) {
-                    // Вывод в консоль
                     for (size_t i = 0; i < block.commands.size(); ++i) {
                         std::cout << block.commands[i];
                         if (i != block.commands.size() - 1)
@@ -117,7 +116,6 @@ namespace async {
                 if (block.commands.empty() && file_queue_.empty())
                     break;
                 if (!block.commands.empty()) {
-                    // Формируем имя файла
                     std::string filename = "bulk" + std::to_string(block.timestamp) + suffix + ".log";
                     std::ofstream file(filename);
                     if (!file.is_open()) {
@@ -141,113 +139,157 @@ namespace async {
         std::thread file2_thread_;
     };
 
-    // ---------- Контекст (обработка команд для одного подключения) ----------
-    class Context {
+    // ---------- Менеджер общего статического пула (синглтон) ----------
+    class StaticPoolManager {
     public:
-        Context(std::size_t block_size, Dispatcher* dispatcher)
-            : static_block_size_(block_size)
-            , dispatcher_(dispatcher)
-            , in_dynamic_block_(false)
-            , dynamic_depth_(0)
-            , ignore_dynamic_block_(false)
-            , block_start_time_(0)
-        {}
+        static StaticPoolManager* get() {
+            static StaticPoolManager instance;
+            return &instance;
+        }
 
-        void processCommand(const std::string& cmd) {
-            if (cmd == "{") {
-                startDynamicBlock();
-                return;
-            }
-            if (cmd == "}") {
-                endDynamicBlock();
-                return;
-            }
+        void setBlockSize(std::size_t size) {
+            std::lock_guard<std::mutex> lock(mutex_);
+            block_size_ = size;
+        }
 
-            if (ignore_dynamic_block_)
-                return; // игнорируем команды внутри неполного динамического блока
-
-            if (current_block_.empty())
+        void addCommand(const std::string& cmd) {
+            std::lock_guard<std::mutex> lock(mutex_);
+            if (current_block_.empty()) {
                 block_start_time_ = std::time(nullptr);
-
+            }
             current_block_.push_back(cmd);
-
-            if (!in_dynamic_block_ && current_block_.size() >= static_block_size_) {
-                flushBlock();
+            //std::cout << "DEBUG: added command, size=" << current_block_.size() << std::endl;
+            if (current_block_.size() >= block_size_) {
+                flushBlockLocked();
             }
         }
 
-        void flush() {
-            // Принудительное завершение (disconnect или EOF)
-            if (in_dynamic_block_) {
-                // Если данные закончились внутри динамического блока – игнорируем его
-                current_block_.clear();
-                ignore_dynamic_block_ = false;
-                in_dynamic_block_ = false;
-                dynamic_depth_ = 0;
-            } else if (!current_block_.empty()) {
-                flushBlock();
-            }
+        void flushBlock() {
+            std::lock_guard<std::mutex> lock(mutex_);
+            flushBlockLocked();
+        }
+
+        void flushAll() {
+            flushBlock();
         }
 
     private:
-        void flushBlock() {
+        StaticPoolManager() : block_size_(3) {}
+
+        void flushBlockLocked() {
             if (current_block_.empty())
                 return;
+            //std::cout << "DEBUG: flushing block with " << current_block_.size() << " commands" << std::endl;
             CommandBlock block;
             block.commands = std::move(current_block_);
             block.timestamp = block_start_time_;
-            // suffix будет добавлен в fileWorker
-            dispatcher_->submitBlock(block);
+            Dispatcher::get()->submitBlock(block);
             current_block_.clear();
             block_start_time_ = 0;
         }
 
-        void startDynamicBlock() {
-            if (in_dynamic_block_) {
+        std::size_t block_size_;
+        std::vector<std::string> current_block_;
+        std::time_t block_start_time_;
+        std::mutex mutex_;
+    };
+
+    // ---------- Контекст клиента ----------
+    class Context {
+    public:
+        Context(std::size_t block_size)
+            : static_block_size_(block_size)
+            , in_dynamic_(false)
+            , dynamic_depth_(0)
+            , ignore_dynamic_(false)
+            , local_block_start_time_(0)
+        {
+            StaticPoolManager::get()->setBlockSize(block_size);
+        }
+
+        void processCommand(const std::string& cmd) {
+            if (cmd == "{") {
+                startDynamic();
+                return;
+            }
+            if (cmd == "}") {
+                endDynamic();
+                return;
+            }
+
+            if (ignore_dynamic_) {
+                return;
+            }
+
+            if (in_dynamic_) {
+                if (local_block_.empty())
+                    local_block_start_time_ = std::time(nullptr);
+                local_block_.push_back(cmd);
+            } else {
+                StaticPoolManager::get()->addCommand(cmd);
+            }
+        }
+
+        void flush() {
+            // Принудительное завершение (disconnect)
+            if (in_dynamic_) {
+                local_block_.clear();
+                ignore_dynamic_ = false;
+                in_dynamic_ = false;
+                dynamic_depth_ = 0;
+            }
+            // Сбрасываем общий статический блок, если в нём есть команды
+            StaticPoolManager::get()->flushBlock();
+        }
+
+    private:
+        void startDynamic() {
+            if (in_dynamic_) {
                 dynamic_depth_++;
                 return;
             }
             // Завершаем текущий статический блок
-            flushBlock();
-            in_dynamic_block_ = true;
+            StaticPoolManager::get()->flushBlock();
+            in_dynamic_ = true;
             dynamic_depth_ = 1;
-            ignore_dynamic_block_ = false;
-            block_start_time_ = std::time(nullptr);
+            ignore_dynamic_ = false;
+            local_block_.clear();
+            local_block_start_time_ = std::time(nullptr);
         }
 
-        void endDynamicBlock() {
-            if (!in_dynamic_block_)
+        void endDynamic() {
+            if (!in_dynamic_)
                 return;
             if (dynamic_depth_ > 1) {
                 dynamic_depth_--;
                 return;
             }
-            // Закрытие внешнего динамического блока
-            if (ignore_dynamic_block_) {
-                current_block_.clear();
-                ignore_dynamic_block_ = false;
-            } else {
-                flushBlock();
+            if (ignore_dynamic_) {
+                local_block_.clear();
+                ignore_dynamic_ = false;
+            } else if (!local_block_.empty()) {
+                CommandBlock block;
+                block.commands = std::move(local_block_);
+                block.timestamp = local_block_start_time_;
+                Dispatcher::get()->submitBlock(block);
+                local_block_.clear();
+                local_block_start_time_ = 0;
             }
-            in_dynamic_block_ = false;
+            in_dynamic_ = false;
             dynamic_depth_ = 0;
         }
 
-    private:
         std::size_t static_block_size_;
-        Dispatcher* dispatcher_;
-        std::vector<std::string> current_block_;
-        bool in_dynamic_block_;
+        bool in_dynamic_;
         int dynamic_depth_;
-        bool ignore_dynamic_block_;
-        std::time_t block_start_time_;
+        bool ignore_dynamic_;
+        std::vector<std::string> local_block_;
+        std::time_t local_block_start_time_;
     };
 
     // ---------- Реализация публичных функций ----------
     void* connect(std::size_t block_size) {
-        auto* dispatcher = Dispatcher::get();
-        auto context = std::make_shared<Context>(block_size, dispatcher);
-        // Возвращаем указатель на shared_ptr (храним в динамической памяти)
+        auto context = std::make_shared<Context>(block_size);
         return new std::shared_ptr<Context>(context);
     }
 
@@ -258,7 +300,6 @@ namespace async {
         auto* ctx_ptr = static_cast<std::shared_ptr<Context>*>(context);
         auto& ctx = *ctx_ptr;
 
-        // Разбиваем буфер на команды по '\n'
         std::string buffer(data, size);
         std::size_t pos = 0;
         while (pos < buffer.size()) {
@@ -271,7 +312,6 @@ namespace async {
                 line = buffer.substr(pos, end - pos);
                 pos = end + 1;
             }
-            // Игнорируем пустые строки (можно убрать, если нужны)
             if (!line.empty()) {
                 ctx->processCommand(line);
             }
@@ -282,8 +322,8 @@ namespace async {
         if (!context)
             return;
         auto* ctx_ptr = static_cast<std::shared_ptr<Context>*>(context);
-        (*ctx_ptr)->flush(); // сбрасываем текущий блок
-        delete ctx_ptr;      // освобождаем память
+        (*ctx_ptr)->flush();
+        delete ctx_ptr;
     }
 
-} // namespace async
+}
