@@ -98,27 +98,32 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasync_1_1Dispatcher.html">Dispatcher</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasync_1_1StaticPoolManager.html">StaticPoolManager</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasync_1_1Context.html">Context</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a338de229383a8d07a4dc85a8d4ca0318"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceasync.html#a338de229383a8d07a4dc85a8d4ca0318">connect</a> (std::size_t block_size)</td></tr>
-<tr class="separator:a338de229383a8d07a4dc85a8d4ca0318"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac72ad080217470c97047514a5cea345e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceasync.html#ac72ad080217470c97047514a5cea345e">receive</a> (void *context, const char *data, std::size_t size)</td></tr>
-<tr class="separator:ac72ad080217470c97047514a5cea345e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d2992b14fc8507d12148f6dc03d2806"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceasync.html#a3d2992b14fc8507d12148f6dc03d2806">disconnect</a> (void *context)</td></tr>
-<tr class="separator:a3d2992b14fc8507d12148f6dc03d2806"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2e262c7441b39869bef2fc869d1ad30"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceasync.html#ae2e262c7441b39869bef2fc869d1ad30">connect</a> (std::size_t block_size)</td></tr>
+<tr class="memdesc:ae2e262c7441b39869bef2fc869d1ad30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создаёт новый контекст обработки команд (для одного клиента).  <a href="namespaceasync.html#ae2e262c7441b39869bef2fc869d1ad30">More...</a><br /></td></tr>
+<tr class="separator:ae2e262c7441b39869bef2fc869d1ad30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accdbf20335da737c7408462481462dfb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceasync.html#accdbf20335da737c7408462481462dfb">receive</a> (void *context, const char *data, std::size_t size)</td></tr>
+<tr class="memdesc:accdbf20335da737c7408462481462dfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Передаёт данные (одну или несколько команд) в контекст.  <a href="namespaceasync.html#accdbf20335da737c7408462481462dfb">More...</a><br /></td></tr>
+<tr class="separator:accdbf20335da737c7408462481462dfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06a20899f877f7f9d300a074eca0ce87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceasync.html#a06a20899f877f7f9d300a074eca0ce87">disconnect</a> (void *context)</td></tr>
+<tr class="memdesc:a06a20899f877f7f9d300a074eca0ce87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Завершает работу с контекстом. Все накопленные команды сбрасываются.  <a href="namespaceasync.html#a06a20899f877f7f9d300a074eca0ce87">More...</a><br /></td></tr>
+<tr class="separator:a06a20899f877f7f9d300a074eca0ce87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a338de229383a8d07a4dc85a8d4ca0318"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a338de229383a8d07a4dc85a8d4ca0318">&#9670;&nbsp;</a></span>connect()</h2>
+<a id="ae2e262c7441b39869bef2fc869d1ad30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2e262c7441b39869bef2fc869d1ad30">&#9670;&nbsp;</a></span>connect()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="async_8h.html#afbb5dcc4834a212fa8924252c42b279d">ASYNC_API</a> void * async::connect </td>
+          <td class="memname">void * async::connect </td>
           <td>(</td>
           <td class="paramtype">std::size_t&#160;</td>
           <td class="paramname"><em>block_size</em></td><td>)</td>
@@ -127,16 +132,25 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Создаёт новый контекст обработки команд (для одного клиента). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">block_size</td><td>Размер статического блока. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Указатель на контекст (неинтерпретируемый для вызывающего кода). </dd></dl>
+
 </div>
 </div>
-<a id="a3d2992b14fc8507d12148f6dc03d2806"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d2992b14fc8507d12148f6dc03d2806">&#9670;&nbsp;</a></span>disconnect()</h2>
+<a id="a06a20899f877f7f9d300a074eca0ce87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06a20899f877f7f9d300a074eca0ce87">&#9670;&nbsp;</a></span>disconnect()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="async_8h.html#afbb5dcc4834a212fa8924252c42b279d">ASYNC_API</a> void async::disconnect </td>
+          <td class="memname">void async::disconnect </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>context</em></td><td>)</td>
@@ -145,16 +159,24 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Завершает работу с контекстом. Все накопленные команды сбрасываются. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">context</td><td>Контекст, возвращённый <a class="el" href="namespaceasync.html#ae2e262c7441b39869bef2fc869d1ad30" title="Создаёт новый контекст обработки команд (для одного клиента).">connect()</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="ac72ad080217470c97047514a5cea345e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac72ad080217470c97047514a5cea345e">&#9670;&nbsp;</a></span>receive()</h2>
+<a id="accdbf20335da737c7408462481462dfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accdbf20335da737c7408462481462dfb">&#9670;&nbsp;</a></span>receive()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="async_8h.html#afbb5dcc4834a212fa8924252c42b279d">ASYNC_API</a> void async::receive </td>
+          <td class="memname">void async::receive </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>context</em>, </td>
@@ -178,6 +200,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Передаёт данные (одну или несколько команд) в контекст. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">context</td><td>Контекст, возвращённый <a class="el" href="namespaceasync.html#ae2e262c7441b39869bef2fc869d1ad30" title="Создаёт новый контекст обработки команд (для одного клиента).">connect()</a>. </td></tr>
+    <tr><td class="paramname">data</td><td>Указатель на буфер с командами. </td></tr>
+    <tr><td class="paramname">size</td><td>Размер буфера в байтах. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

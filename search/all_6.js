@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['get_0',['get',['../classasync_1_1_dispatcher.html#a2e5eac00cd339a00ec977665aece839b',1,'async::Dispatcher']]]
+  ['get_16',['get',['../classasync_1_1Dispatcher.html#adae8f765ea378153e0c6e56bfbc5b03c',1,'async::Dispatcher::get()'],['../classasync_1_1StaticPoolManager.html#a31df6f5a06c7cf7d0952825c40704988',1,'async::StaticPoolManager::get()']]]
 ];

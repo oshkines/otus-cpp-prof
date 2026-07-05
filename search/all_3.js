@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['disconnect_0',['disconnect',['../namespaceasync.html#a3d2992b14fc8507d12148f6dc03d2806',1,'async']]],
-  ['dispatcher_1',['Dispatcher',['../classasync_1_1_dispatcher.html',1,'async']]]
+  ['disconnect_10',['disconnect',['../namespaceasync.html#a06a20899f877f7f9d300a074eca0ce87',1,'async']]],
+  ['dispatcher_11',['Dispatcher',['../classasync_1_1Dispatcher.html',1,'async']]]
 ];

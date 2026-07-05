@@ -84,7 +84,6 @@ $(document).ready(function(){initNavTree('async_8h.html',''); initResizable(); }
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">async.h File Reference</div>  </div>
@@ -118,35 +117,18 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceasync"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceasync.html">async</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:afbb5dcc4834a212fa8924252c42b279d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="async_8h.html#afbb5dcc4834a212fa8924252c42b279d">ASYNC_API</a></td></tr>
-<tr class="separator:afbb5dcc4834a212fa8924252c42b279d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a338de229383a8d07a4dc85a8d4ca0318"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceasync.html#a338de229383a8d07a4dc85a8d4ca0318">async::connect</a> (std::size_t block_size)</td></tr>
-<tr class="separator:a338de229383a8d07a4dc85a8d4ca0318"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac72ad080217470c97047514a5cea345e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceasync.html#ac72ad080217470c97047514a5cea345e">async::receive</a> (void *context, const char *data, std::size_t size)</td></tr>
-<tr class="separator:ac72ad080217470c97047514a5cea345e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d2992b14fc8507d12148f6dc03d2806"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceasync.html#a3d2992b14fc8507d12148f6dc03d2806">async::disconnect</a> (void *context)</td></tr>
-<tr class="separator:a3d2992b14fc8507d12148f6dc03d2806"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2e262c7441b39869bef2fc869d1ad30"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceasync.html#ae2e262c7441b39869bef2fc869d1ad30">async::connect</a> (std::size_t block_size)</td></tr>
+<tr class="memdesc:ae2e262c7441b39869bef2fc869d1ad30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создаёт новый контекст обработки команд (для одного клиента).  <a href="namespaceasync.html#ae2e262c7441b39869bef2fc869d1ad30">More...</a><br /></td></tr>
+<tr class="separator:ae2e262c7441b39869bef2fc869d1ad30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accdbf20335da737c7408462481462dfb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceasync.html#accdbf20335da737c7408462481462dfb">async::receive</a> (void *context, const char *data, std::size_t size)</td></tr>
+<tr class="memdesc:accdbf20335da737c7408462481462dfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Передаёт данные (одну или несколько команд) в контекст.  <a href="namespaceasync.html#accdbf20335da737c7408462481462dfb">More...</a><br /></td></tr>
+<tr class="separator:accdbf20335da737c7408462481462dfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06a20899f877f7f9d300a074eca0ce87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceasync.html#a06a20899f877f7f9d300a074eca0ce87">async::disconnect</a> (void *context)</td></tr>
+<tr class="memdesc:a06a20899f877f7f9d300a074eca0ce87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Завершает работу с контекстом. Все накопленные команды сбрасываются.  <a href="namespaceasync.html#a06a20899f877f7f9d300a074eca0ce87">More...</a><br /></td></tr>
+<tr class="separator:a06a20899f877f7f9d300a074eca0ce87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="afbb5dcc4834a212fa8924252c42b279d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbb5dcc4834a212fa8924252c42b279d">&#9670;&nbsp;</a></span>ASYNC_API</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define ASYNC_API</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
