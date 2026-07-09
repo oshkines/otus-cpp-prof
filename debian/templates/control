@@ -8,7 +8,7 @@ Standards-Version: 4.6.0
 Package: @PROJECT_NAME@
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: @PROJECT_NAME@ – асинхронный сервер для пакетной обработки команд по сети
- Сервер принимает команды по TCP, группирует их в статические
- и динамические блоки, выводит в консоль и сохраняет в файлы.
+Description: @PROJECT_NAME@ – асинхронный SQL-сервер для операций над множествами
+ Сервер принимает команды INSERT, TRUNCATE, INTERSECTION,
+ SYMMETRIC_DIFFERENCE и возвращает результаты в формате CSV.
  This is a student project for C++ course.

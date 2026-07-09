@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 # Экспорт переменных из CMake
-export PROJECT_NAME = bulk-server
+export PROJECT_NAME = SQLite3Server
 
 %:
 	dh	$@

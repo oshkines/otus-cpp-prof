@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['commandblock_0',['CommandBlock',['../structasync_1_1_command_block.html',1,'async']]],
-  ['commands_1',['commands',['../structasync_1_1_command_block.html#adb174842230fc40dbb67045f54787124',1,'async::CommandBlock']]],
-  ['connect_2',['connect',['../namespaceasync.html#ae2e262c7441b39869bef2fc869d1ad30',1,'async']]],
-  ['context_3',['Context',['../classasync_1_1_context.html',1,'async::Context'],['../classasync_1_1_context.html#a09283d50d7c59c4057740e7cdb23b57b',1,'async::Context::Context()']]]
+  ['id_0',['id',['../struct_row.html#acae84002320209edac0e112e9b3a4b2a',1,'Row']]],
+  ['insert_1',['insert',['../class_database_manager.html#a3bfe5cb6177fdd1b93b0fa50133c61c4',1,'DatabaseManager']]],
+  ['intersection_2',['intersection',['../class_database_manager.html#a49420646236d1965b2e0b2ecfc99dfa1',1,'DatabaseManager']]]
 ];
