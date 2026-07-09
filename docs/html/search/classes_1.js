@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['commandblock_0',['CommandBlock',['../structasync_1_1_command_block.html',1,'async']]],
-  ['context_1',['Context',['../classasync_1_1_context.html',1,'async']]]
+  ['databasemanager_0',['DatabaseManager',['../class_database_manager.html',1,'']]]
 ];

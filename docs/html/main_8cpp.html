@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Bulk – парсер пакетных команд: src/main.cpp File Reference</title>
+<title>SQLite3Server – асинхронный SQL-сервер: src/main.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -30,7 +30,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Bulk – парсер пакетных команд<span id="projectnumber">&#160;0.4.1</span>
+   <div id="projectname">SQLite3Server – асинхронный SQL-сервер<span id="projectnumber">&#160;5.2.1</span>
    </div>
   </td>
  </tr>
@@ -118,35 +118,51 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('main_8cpp.html
   <div class="headertitle"><div class="title">main.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="async_8h_source.html">async/async.h</a>&gt;</code><br />
-<code>#include &lt;boost/asio.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;boost/asio.hpp&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
 <code>#include &lt;thread&gt;</code><br />
 <code>#include &lt;cstdlib&gt;</code><br />
+<code>#include &quot;<a class="el" href="_database_manager_8hpp_source.html">DatabaseManager.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_command_parser_8hpp_source.html">CommandParser.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for main.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp__incl.png" border="0" usemap="#asrc_2main_8cpp" loading="lazy" alt=""/></div>
 <map name="asrc_2main_8cpp" id="asrc_2main_8cpp">
-<area shape="rect" title=" " alt="" coords="348,5,444,32"/>
-<area shape="rect" href="async_8h.html" title=" " alt="" coords="5,80,112,107"/>
-<area shape="poly" title=" " alt="" coords="347,33,128,80,126,75,348,28"/>
-<area shape="rect" title=" " alt="" coords="136,80,242,107"/>
-<area shape="poly" title=" " alt="" coords="357,34,240,77,239,72,362,31"/>
-<area shape="rect" title=" " alt="" coords="267,80,338,107"/>
-<area shape="poly" title=" " alt="" coords="382,31,332,73,329,68,377,34"/>
-<area shape="rect" title=" " alt="" coords="362,80,430,107"/>
-<area shape="poly" title=" " alt="" coords="398,30,398,66,394,63,394,35"/>
-<area shape="rect" title=" " alt="" coords="454,80,508,107"/>
-<area shape="poly" title=" " alt="" coords="411,30,458,70,452,70,410,35"/>
-<area shape="rect" title=" " alt="" coords="532,80,590,107"/>
-<area shape="poly" title=" " alt="" coords="425,30,521,73,515,73,424,35"/>
-<area shape="rect" title=" " alt="" coords="614,80,674,107"/>
-<area shape="poly" title=" " alt="" coords="439,30,602,79,597,79,439,35"/>
-<area shape="rect" title=" " alt="" coords="26,155,91,181"/>
-<area shape="poly" title=" " alt="" coords="60,105,61,140,56,138,57,109"/>
+<area shape="rect" title=" " alt="" coords="445,5,541,32"/>
+<area shape="rect" title=" " alt="" coords="5,80,112,107"/>
+<area shape="poly" title=" " alt="" coords="445,30,128,82,127,77,445,25"/>
+<area shape="rect" title=" " alt="" coords="136,80,208,107"/>
+<area shape="poly" title=" " alt="" coords="443,33,224,83,222,78,446,29"/>
+<area shape="rect" title=" " alt="" coords="216,155,285,181"/>
+<area shape="poly" title=" " alt="" coords="442,20,403,26,356,35,311,53,291,66,272,82,263,94,257,109,252,141,248,138,252,108,259,92,269,78,287,62,309,49,355,30,402,20,447,19"/>
+<area shape="rect" title=" " alt="" coords="702,155,756,181"/>
+<area shape="poly" title=" " alt="" coords="541,18,581,23,625,33,668,51,706,78,716,92,723,107,730,141,726,138,718,109,712,95,702,82,666,55,624,38,580,28,542,24"/>
+<area shape="rect" title=" " alt="" coords="459,80,527,107"/>
+<area shape="poly" title=" " alt="" coords="495,31,495,66,491,63,491,35"/>
+<area shape="rect" title=" " alt="" coords="551,80,608,107"/>
+<area shape="poly" title=" " alt="" coords="509,30,556,70,551,70,508,35"/>
+<area shape="rect" title=" " alt="" coords="633,80,692,107"/>
+<area shape="poly" title=" " alt="" coords="523,30,621,73,616,73,522,35"/>
+<area shape="rect" href="_database_manager_8hpp.html" title=" " alt="" coords="282,80,435,107"/>
+<area shape="poly" title=" " alt="" coords="472,32,397,75,395,70,467,33"/>
+<area shape="rect" href="_command_parser_8hpp.html" title=" " alt="" coords="766,80,911,107"/>
+<area shape="poly" title=" " alt="" coords="542,28,766,76,760,77,542,33"/>
+<area shape="poly" title=" " alt="" coords="342,106,283,148,281,143,337,108"/>
+<area shape="poly" title=" " alt="" coords="424,105,689,158,684,159,423,110"/>
+<area shape="rect" title=" " alt="" coords="314,155,384,181"/>
+<area shape="poly" title=" " alt="" coords="359,105,355,141,351,138,355,109"/>
+<area shape="rect" title=" " alt="" coords="555,155,612,181"/>
+<area shape="poly" title=" " alt="" coords="398,105,543,153,538,153,397,110"/>
+<area shape="rect" title=" " alt="" coords="408,155,466,181"/>
+<area shape="poly" title=" " alt="" coords="373,105,415,145,410,143,371,110"/>
+<area shape="poly" title=" " alt="" coords="822,106,762,148,760,143,817,108"/>
+<area shape="poly" title=" " alt="" coords="797,107,628,157,627,152,791,108"/>
+<area shape="rect" title=" " alt="" coords="800,155,877,181"/>
+<area shape="poly" title=" " alt="" coords="840,105,841,141,836,137,837,109"/>
 </map>
 </div>
 </div><table class="memberdecls">
