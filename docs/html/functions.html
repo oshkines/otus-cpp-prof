@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SQLite3Server – асинхронный SQL-сервер: Class Members</title>
+<title>Bulk – парсер пакетных команд: Class Members</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -30,7 +30,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">SQLite3Server – асинхронный SQL-сервер<span id="projectnumber">&#160;5.2.1</span>
+   <div id="projectname">Bulk – парсер пакетных команд<span id="projectnumber">&#160;0.4.1</span>
    </div>
   </td>
  </tr>
@@ -116,24 +116,29 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('functions.html
 
 <div class="contents">
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div><br/>
-<div class="qindex"><a class="qindex" href="#index_c">C</a><div class="alphasepar"></div><a class="qindex" href="#index_d">D</a><div class="alphasepar"></div><a class="qindex" href="#index_i">I</a><div class="alphasepar"></div><a class="qindex" href="#index_n">N</a><div class="alphasepar"></div><a class="qindex" href="#index_p">P</a><div class="alphasepar"></div><a class="qindex" href="#index_r">R</a><div class="alphasepar"></div><a class="qindex" href="#index_s">S</a><div class="alphasepar"></div><a class="qindex" href="#index_t">T</a><div class="alphasepar"></div><a class="qindex" href="#index_~">~</a></div>
+<div class="qindex"><a class="qindex" href="#index_a">A</a><div class="alphasepar"></div><a class="qindex" href="#index_c">C</a><div class="alphasepar"></div><a class="qindex" href="#index_e">E</a><div class="alphasepar"></div><a class="qindex" href="#index_f">F</a><div class="alphasepar"></div><a class="qindex" href="#index_g">G</a><div class="alphasepar"></div><a class="qindex" href="#index_p">P</a><div class="alphasepar"></div><a class="qindex" href="#index_s">S</a><div class="alphasepar"></div><a class="qindex" href="#index_t">T</a><div class="alphasepar"></div><a class="qindex" href="#index_~">~</a></div>
 <ul>
-<li>CommandCallback&#160;:&#160;<a class="el" href="class_command_parser.html#aa9c456e891cd55475da842d5f00c0b63">CommandParser</a></li>
-<li>CommandParser()&#160;:&#160;<a class="el" href="class_command_parser.html#a1fd17c361d85ec13c212cbac1999b9b3">CommandParser</a></li>
-<li>DatabaseManager()&#160;:&#160;<a class="el" href="class_database_manager.html#aa162d97472e6c31a4e873adda435dbb6">DatabaseManager</a></li>
-<li>id&#160;:&#160;<a class="el" href="struct_row.html#acae84002320209edac0e112e9b3a4b2a">Row</a></li>
-<li>insert()&#160;:&#160;<a class="el" href="class_database_manager.html#a3bfe5cb6177fdd1b93b0fa50133c61c4">DatabaseManager</a></li>
-<li>intersection()&#160;:&#160;<a class="el" href="class_database_manager.html#a49420646236d1965b2e0b2ecfc99dfa1">DatabaseManager</a></li>
-<li>nameA&#160;:&#160;<a class="el" href="struct_row.html#a767693f62c0b4d506228531a13482c67">Row</a></li>
-<li>nameB&#160;:&#160;<a class="el" href="struct_row.html#abcef77a7155b50c95f483fd2976fc18e">Row</a></li>
-<li>parse()&#160;:&#160;<a class="el" href="class_command_parser.html#a00a0d608133eec8fbf6f039e03223832">CommandParser</a></li>
-<li>registerCommand()&#160;:&#160;<a class="el" href="class_command_parser.html#ace2520105bdd1ed76ee4e8d7a0973674">CommandParser</a></li>
-<li>Server()&#160;:&#160;<a class="el" href="class_server.html#a370f6de26f1e0f7ac542ee575d7560a0">Server</a></li>
-<li>Session()&#160;:&#160;<a class="el" href="class_session.html#a7b369f48a2b1a20163aefdde5c721ff4">Session</a></li>
+<li>addCommand()&#160;:&#160;<a class="el" href="classasync_1_1_static_pool_manager.html#ae2a6a41c566a9fff4821883773d0419b">async::StaticPoolManager</a></li>
+<li>commands&#160;:&#160;<a class="el" href="structasync_1_1_command_block.html#adb174842230fc40dbb67045f54787124">async::CommandBlock</a></li>
+<li>Context()&#160;:&#160;<a class="el" href="classasync_1_1_context.html#a09283d50d7c59c4057740e7cdb23b57b">async::Context</a></li>
+<li>empty()&#160;:&#160;<a class="el" href="classasync_1_1_blocking_queue.html#ad5a9f5262d91951c8f50fae89d497129">async::BlockingQueue&lt; T &gt;</a></li>
+<li>flush()&#160;:&#160;<a class="el" href="classasync_1_1_context.html#abe654f43f30720fd760e885d926aa0e8">async::Context</a></li>
+<li>flushAll()&#160;:&#160;<a class="el" href="classasync_1_1_static_pool_manager.html#a42ec426f5be799927267338082f5c156">async::StaticPoolManager</a></li>
+<li>flushBlock()&#160;:&#160;<a class="el" href="classasync_1_1_static_pool_manager.html#a6d4ad35499276ea4bd6f02dc7f700a43">async::StaticPoolManager</a></li>
+<li>get()&#160;:&#160;<a class="el" href="classasync_1_1_dispatcher.html#a2e5eac00cd339a00ec977665aece839b">async::Dispatcher</a>, <a class="el" href="classasync_1_1_static_pool_manager.html#aff41462b4a5061782de8513a90a398b0">async::StaticPoolManager</a></li>
+<li>pop()&#160;:&#160;<a class="el" href="classasync_1_1_blocking_queue.html#a41bc8b1ba6d10d7668f3d70ccb672156">async::BlockingQueue&lt; T &gt;</a></li>
+<li>processCommand()&#160;:&#160;<a class="el" href="classasync_1_1_context.html#af29564ce85743ea420c78f2d2dbe2518">async::Context</a></li>
+<li>push()&#160;:&#160;<a class="el" href="classasync_1_1_blocking_queue.html#acbd4bddfc96fd3dcfeaf178e2d6bd8ea">async::BlockingQueue&lt; T &gt;</a></li>
+<li>Server()&#160;:&#160;<a class="el" href="class_server.html#a32c6dc089b39aef801df5ba0980431b1">Server</a></li>
+<li>Session()&#160;:&#160;<a class="el" href="class_session.html#a7290a05b5818b0f47c1a3cf3a1421d22">Session</a></li>
+<li>setBlockSize()&#160;:&#160;<a class="el" href="classasync_1_1_static_pool_manager.html#a8d59bc031c763e25e39d502b3d5af5d2">async::StaticPoolManager</a></li>
+<li>shutdown()&#160;:&#160;<a class="el" href="classasync_1_1_dispatcher.html#a0532e53675fafcadf755abf180b9386b">async::Dispatcher</a></li>
 <li>start()&#160;:&#160;<a class="el" href="class_session.html#a47baf956cead0046fcbac45c572c70d3">Session</a></li>
-<li>symmetricDifference()&#160;:&#160;<a class="el" href="class_database_manager.html#ad9a19961423669b080348982c380189a">DatabaseManager</a></li>
-<li>truncate()&#160;:&#160;<a class="el" href="class_database_manager.html#a46c243b61291651b0851942c2642b2db">DatabaseManager</a></li>
-<li>~DatabaseManager()&#160;:&#160;<a class="el" href="class_database_manager.html#ae9b3a5da1e04fbb00faf8a034da1d063">DatabaseManager</a></li>
+<li>stop()&#160;:&#160;<a class="el" href="classasync_1_1_blocking_queue.html#aa10d90465b4b4287baaf3b51f3442c8e">async::BlockingQueue&lt; T &gt;</a></li>
+<li>submitBlock()&#160;:&#160;<a class="el" href="classasync_1_1_dispatcher.html#a85314278380b77b2ae47d143cd9e424f">async::Dispatcher</a></li>
+<li>suffix&#160;:&#160;<a class="el" href="structasync_1_1_command_block.html#aa7bfd96ee6d8eb8f9465296508102eb7">async::CommandBlock</a></li>
+<li>timestamp&#160;:&#160;<a class="el" href="structasync_1_1_command_block.html#a5304da1bf0d4bfd17a138711161deac7">async::CommandBlock</a></li>
+<li>~Session()&#160;:&#160;<a class="el" href="class_session.html#a8753bb9dee966b7d39abc9b7237cd665">Session</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

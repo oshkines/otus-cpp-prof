@@ -17,8 +17,8 @@ namespace async {
     // ---------- Структура блока команд ----------
     struct CommandBlock {
         std::vector<std::string> commands;
-        std::time_t timestamp;
-        std::string suffix;
+        uint64_t timestamp;      // миллисекунды с эпохи
+        std::string suffix;      // для файлов (_1 или _2)
     };
 
     // ---------- Потокобезопасная очередь ----------
@@ -100,6 +100,8 @@ namespace async {
                 if (block.commands.empty() && console_queue_.empty())
                     break;
                 if (!block.commands.empty()) {
+                    // Исправление №1: вывод с префиксом "bulk: "
+                    std::cout << "bulk: ";
                     for (size_t i = 0; i < block.commands.size(); ++i) {
                         std::cout << block.commands[i];
                         if (i != block.commands.size() - 1)
@@ -116,6 +118,7 @@ namespace async {
                 if (block.commands.empty() && file_queue_.empty())
                     break;
                 if (!block.commands.empty()) {
+                    // Исправление №2: timestamp как uint64_t (миллисекунды)
                     std::string filename = "bulk" + std::to_string(block.timestamp) + suffix + ".log";
                     std::ofstream file(filename);
                     if (!file.is_open()) {
@@ -155,10 +158,9 @@ namespace async {
         void addCommand(const std::string& cmd) {
             std::lock_guard<std::mutex> lock(mutex_);
             if (current_block_.empty()) {
-                block_start_time_ = std::time(nullptr);
+                block_start_time_ = getCurrentTimestamp();
             }
             current_block_.push_back(cmd);
-            //std::cout << "DEBUG: added command, size=" << current_block_.size() << std::endl;
             if (current_block_.size() >= block_size_) {
                 flushBlockLocked();
             }
@@ -176,10 +178,17 @@ namespace async {
     private:
         StaticPoolManager() : block_size_(3) {}
 
+        uint64_t getCurrentTimestamp() {
+            auto now = std::chrono::system_clock::now();
+            auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+                now.time_since_epoch()
+            ).count();
+            return static_cast<uint64_t>(ms);
+        }
+
         void flushBlockLocked() {
             if (current_block_.empty())
                 return;
-            //std::cout << "DEBUG: flushing block with " << current_block_.size() << " commands" << std::endl;
             CommandBlock block;
             block.commands = std::move(current_block_);
             block.timestamp = block_start_time_;
@@ -190,7 +199,7 @@ namespace async {
 
         std::size_t block_size_;
         std::vector<std::string> current_block_;
-        std::time_t block_start_time_;
+        uint64_t block_start_time_;
         std::mutex mutex_;
     };
 
@@ -223,7 +232,7 @@ namespace async {
 
             if (in_dynamic_) {
                 if (local_block_.empty())
-                    local_block_start_time_ = std::time(nullptr);
+                    local_block_start_time_ = getCurrentTimestamp();
                 local_block_.push_back(cmd);
             } else {
                 StaticPoolManager::get()->addCommand(cmd);
@@ -231,18 +240,25 @@ namespace async {
         }
 
         void flush() {
-            // Принудительное завершение (disconnect)
+            // Исправление №3: НЕ вызываем StaticPoolManager::flushBlock()!
+            // Только очищаем локальный динамический блок
             if (in_dynamic_) {
                 local_block_.clear();
                 ignore_dynamic_ = false;
                 in_dynamic_ = false;
                 dynamic_depth_ = 0;
             }
-            // Сбрасываем общий статический блок, если в нём есть команды
-            StaticPoolManager::get()->flushBlock();
         }
 
     private:
+        uint64_t getCurrentTimestamp() {
+            auto now = std::chrono::system_clock::now();
+            auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+                now.time_since_epoch()
+            ).count();
+            return static_cast<uint64_t>(ms);
+        }
+
         void startDynamic() {
             if (in_dynamic_) {
                 dynamic_depth_++;
@@ -254,7 +270,7 @@ namespace async {
             dynamic_depth_ = 1;
             ignore_dynamic_ = false;
             local_block_.clear();
-            local_block_start_time_ = std::time(nullptr);
+            local_block_start_time_ = getCurrentTimestamp();
         }
 
         void endDynamic() {
@@ -284,7 +300,7 @@ namespace async {
         int dynamic_depth_;
         bool ignore_dynamic_;
         std::vector<std::string> local_block_;
-        std::time_t local_block_start_time_;
+        uint64_t local_block_start_time_;
     };
 
     // ---------- Реализация публичных функций ----------
@@ -324,6 +340,11 @@ namespace async {
         auto* ctx_ptr = static_cast<std::shared_ptr<Context>*>(context);
         (*ctx_ptr)->flush();
         delete ctx_ptr;
+    }
+
+    // Глобальная функция для завершения работы сервера (вызывается из main)
+    void shutdownDispatcher() {
+        Dispatcher::get()->shutdown();
     }
 
 }

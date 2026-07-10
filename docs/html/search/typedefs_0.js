@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['commandcallback_0',['CommandCallback',['../class_command_parser.html#aa9c456e891cd55475da842d5f00c0b63',1,'CommandParser']]]
+  ['callback_0',['Callback',['../class_command_reader.html#a30b7edccd177acea5f6b514fd36850e1',1,'CommandReader']]]
 ];

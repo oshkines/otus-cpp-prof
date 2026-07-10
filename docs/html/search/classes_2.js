@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['row_0',['Row',['../struct_row.html',1,'']]]
+  ['dispatcher_0',['Dispatcher',['../classasync_1_1_dispatcher.html',1,'async']]]
 ];

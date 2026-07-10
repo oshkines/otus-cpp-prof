@@ -1,14 +1,14 @@
-Source: sqlite3server
+Source: bulk-server
 Section: libs
 Priority: optional
 Maintainer: oshkines <oshkines@mail.ru>
 Build-Depends: debhelper-compat (= 13), cmake, g++
 Standards-Version: 4.6.0
 
-Package: sqlite3server
+Package: bulk-server
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: SQLite3Server – асинхронный SQL-сервер для операций над множествами
- Сервер принимает команды INSERT, TRUNCATE, INTERSECTION,
- SYMMETRIC_DIFFERENCE и возвращает результаты в формате CSV.
+Description: bulk-server – асинхронный сервер для пакетной обработки команд по сети
+ Сервер принимает команды по TCP, группирует их в статические
+ и динамические блоки, выводит в консоль и сохраняет в файлы.
  This is a student project for C++ course.

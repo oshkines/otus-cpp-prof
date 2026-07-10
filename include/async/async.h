@@ -24,5 +24,7 @@ namespace async {
      * @param context Контекст, возвращённый connect().
      */
     void disconnect(void* context);
+	
+	 void shutdownDispatcher();  // для корректного завершения потоков
 
 }

@@ -24,7 +24,14 @@
 */
 var NAVTREE =
 [
-  [ "SQLite3Server – асинхронный SQL-сервер", "index.html", [
+  [ "Bulk – парсер пакетных команд", "index.html", [
+    [ "Namespaces", "namespaces.html", [
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Functions", "namespacemembers_func.html", null ]
+      ] ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -32,8 +39,7 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ],
-        [ "Typedefs", "functions_type.html", null ]
+        [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -48,7 +54,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_command_parser_8cpp.html"
+"annotated.html"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';
