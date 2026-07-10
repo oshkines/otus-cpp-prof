@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['timestamp_70',['timestamp',['../structasync_1_1CommandBlock.html#a5304da1bf0d4bfd17a138711161deac7',1,'async::CommandBlock']]]
+  ['namea_110',['nameA',['../structRow.html#a767693f62c0b4d506228531a13482c67',1,'Row']]],
+  ['nameb_111',['nameB',['../structRow.html#abcef77a7155b50c95f483fd2976fc18e',1,'Row']]]
 ];

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['main_17',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
-  ['main_2ecpp_18',['main.cpp',['../main_8cpp.html',1,'']]]
+  ['id_24',['id',['../structRow.html#acae84002320209edac0e112e9b3a4b2a',1,'Row']]],
+  ['insert_25',['insert',['../classDatabaseManager.html#a3bfe5cb6177fdd1b93b0fa50133c61c4',1,'DatabaseManager']]],
+  ['intersection_26',['intersection',['../classDatabaseManager.html#a49420646236d1965b2e0b2ecfc99dfa1',1,'DatabaseManager']]]
 ];

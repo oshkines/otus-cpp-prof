@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['iobserver_2ehpp_0',['IObserver.hpp',['../_i_observer_8hpp.html',1,'']]]
+  ['databasemanager_2ecpp_71',['DatabaseManager.cpp',['../DatabaseManager_8cpp.html',1,'']]],
+  ['databasemanager_2ehpp_72',['DatabaseManager.hpp',['../DatabaseManager_8hpp.html',1,'']]]
 ];

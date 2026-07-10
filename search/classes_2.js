@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['dispatcher_38',['Dispatcher',['../classasync_1_1Dispatcher.html',1,'async']]]
+  ['databasemanager_60',['DatabaseManager',['../classDatabaseManager.html',1,'']]],
+  ['dispatcher_61',['Dispatcher',['../classasync_1_1Dispatcher.html',1,'async']]]
 ];

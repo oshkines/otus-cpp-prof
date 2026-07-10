@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['main_55',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]]
+  ['insert_85',['insert',['../classDatabaseManager.html#a3bfe5cb6177fdd1b93b0fa50133c61c4',1,'DatabaseManager']]],
+  ['intersection_86',['intersection',['../classDatabaseManager.html#a49420646236d1965b2e0b2ecfc99dfa1',1,'DatabaseManager']]]
 ];

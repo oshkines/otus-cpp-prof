@@ -7,6 +7,9 @@ var annotated_dup =
       [ "StaticPoolManager", "classasync_1_1StaticPoolManager.html", "classasync_1_1StaticPoolManager" ],
       [ "Context", "classasync_1_1Context.html", "classasync_1_1Context" ]
     ] ],
+    [ "CommandParser", "classCommandParser.html", "classCommandParser" ],
+    [ "DatabaseManager", "classDatabaseManager.html", "classDatabaseManager" ],
+    [ "Row", "structRow.html", "structRow" ],
     [ "Server", "classServer.html", "classServer" ],
     [ "Session", "classSession.html", "classSession" ]
 ];

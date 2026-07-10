@@ -7,5 +7,6 @@ var namespaceasync =
     [ "Context", "classasync_1_1Context.html", "classasync_1_1Context" ],
     [ "connect", "namespaceasync.html#ae2e262c7441b39869bef2fc869d1ad30", null ],
     [ "disconnect", "namespaceasync.html#a06a20899f877f7f9d300a074eca0ce87", null ],
-    [ "receive", "namespaceasync.html#accdbf20335da737c7408462481462dfb", null ]
+    [ "receive", "namespaceasync.html#accdbf20335da737c7408462481462dfb", null ],
+    [ "shutdownDispatcher", "namespaceasync.html#a7ba3a6f5d01407b59f1acecc8cdf556f", null ]
 ];
