@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "Bulk – парсер пакетных команд", "index.html", [
+  [ "SQLite3Server – асинхронный SQL-сервер", "index.html", [
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
