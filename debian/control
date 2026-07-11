@@ -8,7 +8,7 @@ Standards-Version: 4.6.0
 Package: sqlite3server
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: SQLite3Server – асинхронный SQL-сервер для операций над множествами
+Description: sqlite3server – асинхронный SQL-сервер для операций над множествами
  Сервер принимает команды INSERT, TRUNCATE, INTERSECTION,
  SYMMETRIC_DIFFERENCE и возвращает результаты в формате CSV.
  This is a student project for C++ course.

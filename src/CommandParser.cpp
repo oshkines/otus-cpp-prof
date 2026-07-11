@@ -1,12 +1,10 @@
 #include "CommandParser.hpp"
 #include <sstream>
-#include <unordered_map>
 
-CommandParser::CommandParser() {
-    // Команды регистрируются в main.cpp
-}
+CommandParser::CommandParser() {}
 
 void CommandParser::registerCommand(const std::string& name, CommandCallback callback) {
+    std::lock_guard<std::mutex> lock(mutex_);
     callbacks_[name] = callback;
 }
 
@@ -19,6 +17,7 @@ std::string CommandParser::parse(const std::string& command) {
         return "ERR empty command";
     }
 
+    std::lock_guard<std::mutex> lock(mutex_);
     auto it = callbacks_.find(cmdName);
     if (it == callbacks_.end()) {
         return "ERR unknown command: " + cmdName;

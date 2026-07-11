@@ -7,6 +7,7 @@
 {\ttfamily \+\#include $<$sstream$>$}\newline
 {\ttfamily \+\#include $<$thread$>$}\newline
 {\ttfamily \+\#include $<$cstdlib$>$}\newline
+{\ttfamily \+\#include $<$csignal$>$}\newline
 {\ttfamily \+\#include "{}Database\+Manager.\+hpp"{}}\newline
 {\ttfamily \+\#include "{}Command\+Parser.\+hpp"{}}\newline
 Include dependency graph for main.\+cpp:\+
@@ -27,6 +28,8 @@ class \doxymbox{\hyperlink{class_server}{Server}}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+void \doxymbox{\hyperlink{main_8cpp_adfe90e1a94b18921c8a8ec76d94edbd4}{signal\+Handler}} (int)
+\item 
 int \doxymbox{\hyperlink{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\+[$\,$]\+)
 \end{DoxyCompactItemize}
 
@@ -39,4 +42,10 @@ int \doxymbox{\hyperlink{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (in
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily \label{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97} 
 int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{argv}{\+[$\,$]\+}\end{DoxyParamCaption})}
+
+\Hypertarget{main_8cpp_adfe90e1a94b18921c8a8ec76d94edbd4}\index{main.cpp@{main.cpp}!signalHandler@{signalHandler}}
+\index{signalHandler@{signalHandler}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{signalHandler()}{signalHandler()}}
+{\footnotesize\ttfamily \label{main_8cpp_adfe90e1a94b18921c8a8ec76d94edbd4} 
+void signal\+Handler (\begin{DoxyParamCaption}\item[{int}]{}{}\end{DoxyParamCaption})}
 

@@ -36,11 +36,47 @@ bool DatabaseManager::executeQuery(const std::string& query, std::string& error)
     return true;
 }
 
+bool DatabaseManager::idExists(const std::string& table, int id) {
+    std::string query = "SELECT 1 FROM " + table + " WHERE id = " + std::to_string(id) + ";";
+    sqlite3_stmt* stmt = nullptr;
+    if (sqlite3_prepare_v2(db_, query.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+        return false;
+    }
+    bool exists = (sqlite3_step(stmt) == SQLITE_ROW);
+    sqlite3_finalize(stmt);
+    return exists;
+}
+
 bool DatabaseManager::insert(const std::string& table, int id, const std::string& name, std::string& error) {
     std::lock_guard<std::mutex> lock(mutex_);
-    std::ostringstream query;
-    query << "INSERT INTO " << table << " (id, name) VALUES (" << id << ", '" << name << "');";
-    return executeQuery(query.str(), error);
+    
+    // Проверка на дубликат (исправление №4)
+    if (idExists(table, id)) {
+        error = "duplicate " + std::to_string(id);
+        return false;
+    }
+
+    // Исправление №3: параметризованный запрос
+    const std::string query = "INSERT INTO " + table + " (id, name) VALUES (?, ?);";
+    sqlite3_stmt* stmt = nullptr;
+    
+    if (sqlite3_prepare_v2(db_, query.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+        error = sqlite3_errmsg(db_);
+        return false;
+    }
+
+    sqlite3_bind_int(stmt, 1, id);
+    sqlite3_bind_text(stmt, 2, name.c_str(), -1, SQLITE_STATIC);
+
+    int rc = sqlite3_step(stmt);
+    sqlite3_finalize(stmt);
+
+    if (rc != SQLITE_DONE) {
+        error = sqlite3_errmsg(db_);
+        return false;
+    }
+
+    return true;
 }
 
 bool DatabaseManager::truncate(const std::string& table, std::string& error) {
@@ -65,8 +101,10 @@ std::vector<Row> DatabaseManager::intersection(std::string& error) {
     while (sqlite3_step(stmt) == SQLITE_ROW) {
         Row row;
         row.id = sqlite3_column_int(stmt, 0);
-        row.nameA = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
-        row.nameB = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+        const char* nameA = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        const char* nameB = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+        row.nameA = nameA ? nameA : "";
+        row.nameB = nameB ? nameB : "";
         result.push_back(row);
     }
 
@@ -77,8 +115,6 @@ std::vector<Row> DatabaseManager::intersection(std::string& error) {
 std::vector<Row> DatabaseManager::symmetricDifference(std::string& error) {
     std::lock_guard<std::mutex> lock(mutex_);
     std::vector<Row> result;
-    
-    // Получаем id, которые есть только в A или только в B
     const std::string query =
         "SELECT id, name, '' FROM A WHERE id NOT IN (SELECT id FROM B) "
         "UNION "

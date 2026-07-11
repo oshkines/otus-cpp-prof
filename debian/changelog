@@ -1,5 +1,5 @@
-sqlite3server (5.2.1) unstable; urgency=medium
+sqlite3server (5.3.0) unstable; urgency=medium
 
   * Initial release.
 
- -- oshkines <oshkines@mail.ru>  Thu, 09 Jul 2026 17:21:00 +0300
+ -- oshkines <oshkines@mail.ru>  Sat, 11 Jul 2026 10:22:00 +0300

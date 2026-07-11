@@ -31,4 +31,5 @@ private:
 
     bool executeQuery(const std::string& query, std::string& error);
     bool prepareTables(std::string& error);
+    bool idExists(const std::string& table, int id);
 };
