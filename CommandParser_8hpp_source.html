@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SQLite3Server – асинхронный SQL-сервер
-   &#160;<span id="projectnumber">5.2.1</span>
+   &#160;<span id="projectnumber">5.3.0</span>
    </div>
   </td>
  </tr>
@@ -90,26 +90,28 @@ $(document).ready(function(){initNavTree('CommandParser_8hpp_source.html',''); i
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="classCommandParser.html">    7</a></span>&#160;<span class="keyword">class </span><a class="code" href="classCommandParser.html">CommandParser</a> {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classCommandParser.html#aa9c456e891cd55475da842d5f00c0b63">    9</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classCommandParser.html#aa9c456e891cd55475da842d5f00c0b63">CommandCallback</a> = std::function&lt;std::string(<span class="keyword">const</span> std::vector&lt;std::string&gt;&amp;)&gt;;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="classCommandParser.html#a1fd17c361d85ec13c212cbac1999b9b3">CommandParser</a>();</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classCommandParser.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="classCommandParser.html">CommandParser</a> {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classCommandParser.html#aa9c456e891cd55475da842d5f00c0b63">   11</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classCommandParser.html#aa9c456e891cd55475da842d5f00c0b63">CommandCallback</a> = std::function&lt;std::string(<span class="keyword">const</span> std::vector&lt;std::string&gt;&amp;)&gt;;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    std::string <a class="code" href="classCommandParser.html#a00a0d608133eec8fbf6f039e03223832">parse</a>(<span class="keyword">const</span> std::string&amp; command);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="classCommandParser.html#a1fd17c361d85ec13c212cbac1999b9b3">CommandParser</a>();</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classCommandParser.html#ace2520105bdd1ed76ee4e8d7a0973674">registerCommand</a>(<span class="keyword">const</span> std::string&amp; name, <a class="code" href="classCommandParser.html#aa9c456e891cd55475da842d5f00c0b63">CommandCallback</a> callback);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    std::unordered_map&lt;std::string, CommandCallback&gt; callbacks_;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;};</div>
-<div class="ttc" id="aclassCommandParser_html"><div class="ttname"><a href="classCommandParser.html">CommandParser</a></div><div class="ttdef"><b>Definition:</b> CommandParser.hpp:7</div></div>
-<div class="ttc" id="aclassCommandParser_html_a00a0d608133eec8fbf6f039e03223832"><div class="ttname"><a href="classCommandParser.html#a00a0d608133eec8fbf6f039e03223832">CommandParser::parse</a></div><div class="ttdeci">std::string parse(const std::string &amp;command)</div><div class="ttdef"><b>Definition:</b> CommandParser.cpp:13</div></div>
-<div class="ttc" id="aclassCommandParser_html_a1fd17c361d85ec13c212cbac1999b9b3"><div class="ttname"><a href="classCommandParser.html#a1fd17c361d85ec13c212cbac1999b9b3">CommandParser::CommandParser</a></div><div class="ttdeci">CommandParser()</div><div class="ttdef"><b>Definition:</b> CommandParser.cpp:5</div></div>
-<div class="ttc" id="aclassCommandParser_html_aa9c456e891cd55475da842d5f00c0b63"><div class="ttname"><a href="classCommandParser.html#aa9c456e891cd55475da842d5f00c0b63">CommandParser::CommandCallback</a></div><div class="ttdeci">std::function&lt; std::string(const std::vector&lt; std::string &gt; &amp;)&gt; CommandCallback</div><div class="ttdef"><b>Definition:</b> CommandParser.hpp:9</div></div>
-<div class="ttc" id="aclassCommandParser_html_ace2520105bdd1ed76ee4e8d7a0973674"><div class="ttname"><a href="classCommandParser.html#ace2520105bdd1ed76ee4e8d7a0973674">CommandParser::registerCommand</a></div><div class="ttdeci">void registerCommand(const std::string &amp;name, CommandCallback callback)</div><div class="ttdef"><b>Definition:</b> CommandParser.cpp:9</div></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    std::string <a class="code" href="classCommandParser.html#a00a0d608133eec8fbf6f039e03223832">parse</a>(<span class="keyword">const</span> std::string&amp; command);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    std::unordered_map&lt;std::string, CommandCallback&gt; callbacks_;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">mutable</span> std::mutex mutex_;  <span class="comment">// Исправление №2: потокобезопасность</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;};</div>
+<div class="ttc" id="aclassCommandParser_html"><div class="ttname"><a href="classCommandParser.html">CommandParser</a></div><div class="ttdef"><b>Definition:</b> CommandParser.hpp:9</div></div>
+<div class="ttc" id="aclassCommandParser_html_a00a0d608133eec8fbf6f039e03223832"><div class="ttname"><a href="classCommandParser.html#a00a0d608133eec8fbf6f039e03223832">CommandParser::parse</a></div><div class="ttdeci">std::string parse(const std::string &amp;command)</div><div class="ttdef"><b>Definition:</b> CommandParser.cpp:11</div></div>
+<div class="ttc" id="aclassCommandParser_html_a1fd17c361d85ec13c212cbac1999b9b3"><div class="ttname"><a href="classCommandParser.html#a1fd17c361d85ec13c212cbac1999b9b3">CommandParser::CommandParser</a></div><div class="ttdeci">CommandParser()</div><div class="ttdef"><b>Definition:</b> CommandParser.cpp:4</div></div>
+<div class="ttc" id="aclassCommandParser_html_aa9c456e891cd55475da842d5f00c0b63"><div class="ttname"><a href="classCommandParser.html#aa9c456e891cd55475da842d5f00c0b63">CommandParser::CommandCallback</a></div><div class="ttdeci">std::function&lt; std::string(const std::vector&lt; std::string &gt; &amp;)&gt; CommandCallback</div><div class="ttdef"><b>Definition:</b> CommandParser.hpp:11</div></div>
+<div class="ttc" id="aclassCommandParser_html_ace2520105bdd1ed76ee4e8d7a0973674"><div class="ttname"><a href="classCommandParser.html#ace2520105bdd1ed76ee4e8d7a0973674">CommandParser::registerCommand</a></div><div class="ttdeci">void registerCommand(const std::string &amp;name, CommandCallback callback)</div><div class="ttdef"><b>Definition:</b> CommandParser.cpp:6</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

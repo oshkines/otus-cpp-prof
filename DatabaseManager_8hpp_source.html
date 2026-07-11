@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SQLite3Server – асинхронный SQL-сервер
-   &#160;<span id="projectnumber">5.2.1</span>
+   &#160;<span id="projectnumber">5.3.0</span>
    </div>
   </td>
  </tr>
@@ -119,13 +119,14 @@ $(document).ready(function(){initNavTree('DatabaseManager_8hpp_source.html','');
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">bool</span> executeQuery(<span class="keyword">const</span> std::string&amp; query, std::string&amp; error);</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">bool</span> prepareTables(std::string&amp; error);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;};</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">bool</span> idExists(<span class="keyword">const</span> std::string&amp; table, <span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;};</div>
 <div class="ttc" id="aclassDatabaseManager_html"><div class="ttname"><a href="classDatabaseManager.html">DatabaseManager</a></div><div class="ttdef"><b>Definition:</b> DatabaseManager.hpp:15</div></div>
-<div class="ttc" id="aclassDatabaseManager_html_a3bfe5cb6177fdd1b93b0fa50133c61c4"><div class="ttname"><a href="classDatabaseManager.html#a3bfe5cb6177fdd1b93b0fa50133c61c4">DatabaseManager::insert</a></div><div class="ttdeci">bool insert(const std::string &amp;table, int id, const std::string &amp;name, std::string &amp;error)</div><div class="ttdef"><b>Definition:</b> DatabaseManager.cpp:39</div></div>
-<div class="ttc" id="aclassDatabaseManager_html_a46c243b61291651b0851942c2642b2db"><div class="ttname"><a href="classDatabaseManager.html#a46c243b61291651b0851942c2642b2db">DatabaseManager::truncate</a></div><div class="ttdeci">bool truncate(const std::string &amp;table, std::string &amp;error)</div><div class="ttdef"><b>Definition:</b> DatabaseManager.cpp:46</div></div>
-<div class="ttc" id="aclassDatabaseManager_html_a49420646236d1965b2e0b2ecfc99dfa1"><div class="ttname"><a href="classDatabaseManager.html#a49420646236d1965b2e0b2ecfc99dfa1">DatabaseManager::intersection</a></div><div class="ttdeci">std::vector&lt; Row &gt; intersection(std::string &amp;error)</div><div class="ttdef"><b>Definition:</b> DatabaseManager.cpp:53</div></div>
+<div class="ttc" id="aclassDatabaseManager_html_a3bfe5cb6177fdd1b93b0fa50133c61c4"><div class="ttname"><a href="classDatabaseManager.html#a3bfe5cb6177fdd1b93b0fa50133c61c4">DatabaseManager::insert</a></div><div class="ttdeci">bool insert(const std::string &amp;table, int id, const std::string &amp;name, std::string &amp;error)</div><div class="ttdef"><b>Definition:</b> DatabaseManager.cpp:50</div></div>
+<div class="ttc" id="aclassDatabaseManager_html_a46c243b61291651b0851942c2642b2db"><div class="ttname"><a href="classDatabaseManager.html#a46c243b61291651b0851942c2642b2db">DatabaseManager::truncate</a></div><div class="ttdeci">bool truncate(const std::string &amp;table, std::string &amp;error)</div><div class="ttdef"><b>Definition:</b> DatabaseManager.cpp:82</div></div>
+<div class="ttc" id="aclassDatabaseManager_html_a49420646236d1965b2e0b2ecfc99dfa1"><div class="ttname"><a href="classDatabaseManager.html#a49420646236d1965b2e0b2ecfc99dfa1">DatabaseManager::intersection</a></div><div class="ttdeci">std::vector&lt; Row &gt; intersection(std::string &amp;error)</div><div class="ttdef"><b>Definition:</b> DatabaseManager.cpp:89</div></div>
 <div class="ttc" id="aclassDatabaseManager_html_aa162d97472e6c31a4e873adda435dbb6"><div class="ttname"><a href="classDatabaseManager.html#aa162d97472e6c31a4e873adda435dbb6">DatabaseManager::DatabaseManager</a></div><div class="ttdeci">DatabaseManager()</div><div class="ttdef"><b>Definition:</b> DatabaseManager.cpp:5</div></div>
-<div class="ttc" id="aclassDatabaseManager_html_ad9a19961423669b080348982c380189a"><div class="ttname"><a href="classDatabaseManager.html#ad9a19961423669b080348982c380189a">DatabaseManager::symmetricDifference</a></div><div class="ttdeci">std::vector&lt; Row &gt; symmetricDifference(std::string &amp;error)</div><div class="ttdef"><b>Definition:</b> DatabaseManager.cpp:77</div></div>
+<div class="ttc" id="aclassDatabaseManager_html_ad9a19961423669b080348982c380189a"><div class="ttname"><a href="classDatabaseManager.html#ad9a19961423669b080348982c380189a">DatabaseManager::symmetricDifference</a></div><div class="ttdeci">std::vector&lt; Row &gt; symmetricDifference(std::string &amp;error)</div><div class="ttdef"><b>Definition:</b> DatabaseManager.cpp:115</div></div>
 <div class="ttc" id="aclassDatabaseManager_html_ae9b3a5da1e04fbb00faf8a034da1d063"><div class="ttname"><a href="classDatabaseManager.html#ae9b3a5da1e04fbb00faf8a034da1d063">DatabaseManager::~DatabaseManager</a></div><div class="ttdeci">~DatabaseManager()</div><div class="ttdef"><b>Definition:</b> DatabaseManager.cpp:15</div></div>
 <div class="ttc" id="astructRow_html"><div class="ttname"><a href="structRow.html">Row</a></div><div class="ttdef"><b>Definition:</b> DatabaseManager.hpp:9</div></div>
 <div class="ttc" id="astructRow_html_a767693f62c0b4d506228531a13482c67"><div class="ttname"><a href="structRow.html#a767693f62c0b4d506228531a13482c67">Row::nameA</a></div><div class="ttdeci">std::string nameA</div><div class="ttdef"><b>Definition:</b> DatabaseManager.hpp:11</div></div>

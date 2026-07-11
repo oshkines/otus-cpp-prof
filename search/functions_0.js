@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['addcommand_69',['addCommand',['../classasync_1_1StaticPoolManager.html#ae2a6a41c566a9fff4821883773d0419b',1,'async::StaticPoolManager']]]
+  ['commandparser_34',['CommandParser',['../classCommandParser.html#a1fd17c361d85ec13c212cbac1999b9b3',1,'CommandParser']]]
 ];

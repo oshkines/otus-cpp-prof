@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_82',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]]
+  ['truncate_46',['truncate',['../classDatabaseManager.html#a46c243b61291651b0851942c2642b2db',1,'DatabaseManager']]]
 ];

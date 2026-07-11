@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['databasemanager_73',['DatabaseManager',['../classDatabaseManager.html#aa162d97472e6c31a4e873adda435dbb6',1,'DatabaseManager']]],
-  ['disconnect_74',['disconnect',['../namespaceasync.html#a06a20899f877f7f9d300a074eca0ce87',1,'async']]]
+  ['insert_36',['insert',['../classDatabaseManager.html#a3bfe5cb6177fdd1b93b0fa50133c61c4',1,'DatabaseManager']]],
+  ['intersection_37',['intersection',['../classDatabaseManager.html#a49420646236d1965b2e0b2ecfc99dfa1',1,'DatabaseManager']]]
 ];

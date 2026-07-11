@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['empty_18',['empty',['../classasync_1_1BlockingQueue.html#ad5a9f5262d91951c8f50fae89d497129',1,'async::BlockingQueue']]]
+  ['namea_12',['nameA',['../structRow.html#a767693f62c0b4d506228531a13482c67',1,'Row']]],
+  ['nameb_13',['nameB',['../structRow.html#abcef77a7155b50c95f483fd2976fc18e',1,'Row']]]
 ];
