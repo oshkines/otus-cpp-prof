@@ -1,197 +1,195 @@
-#include <boost/asio.hpp>
 #include <iostream>
-#include <memory>
 #include <string>
-#include <sstream>
-#include <thread>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <map>
+#include <iomanip>
 #include <cstdlib>
-#include <csignal>
+#include "csv_parser.hpp"
+#include "statistics.hpp"
 
-#include "DatabaseManager.hpp"
-#include "CommandParser.hpp"
+// Объявляем функции из mapper.cpp и reducer.cpp
+int mapper_main();
+int reducer_main();
 
-using boost::asio::ip::tcp;
-
-class Session : public std::enable_shared_from_this<Session> {
-public:
-    Session(tcp::socket socket, DatabaseManager& db, CommandParser& parser)
-        : socket_(std::move(socket))
-        , db_(db)
-        , parser_(parser)
-        , write_buffer_()  // Исправление №5: буфер для ответа
-    {
-        // Исправление №1: регистрация команд в конструкторе
-        registerCommands();
-    }
-
-    void start() {
-        doRead();
-    }
-
-private:
-    void registerCommands() {
-        parser_.registerCommand("INSERT", [this](const std::vector<std::string>& args) -> std::string {
-            if (args.size() != 3) {
-                return "ERR invalid arguments for INSERT";
-            }
-            const std::string& table = args[0];
-            if (table != "A" && table != "B") {
-                return "ERR invalid table name: " + table;
-            }
-            int id = std::stoi(args[1]);
-            const std::string& name = args[2];
-
-            std::string error;
-            if (db_.insert(table, id, name, error)) {
-                return "OK";
-            } else {
-                return "ERR " + error;
-            }
-        });
-
-        parser_.registerCommand("TRUNCATE", [this](const std::vector<std::string>& args) -> std::string {
-            if (args.size() != 1) {
-                return "ERR invalid arguments for TRUNCATE";
-            }
-            const std::string& table = args[0];
-            if (table != "A" && table != "B") {
-                return "ERR invalid table name: " + table;
-            }
-            std::string error;
-            if (db_.truncate(table, error)) {
-                return "OK";
-            } else {
-                return "ERR " + error;
-            }
-        });
-
-        // Исправление №6: проверка на лишние аргументы
-        parser_.registerCommand("INTERSECTION", [this](const std::vector<std::string>& args) -> std::string {
-            if (!args.empty()) {
-                return "ERR INTERSECTION takes no arguments";
-            }
-            std::string error;
-            auto rows = db_.intersection(error);
-            if (rows.empty() && !error.empty()) {
-                return "ERR " + error;
-            }
-            std::ostringstream oss;
-            for (const auto& row : rows) {
-                oss << row.id << "," << row.nameA << "," << row.nameB << "\n";
-            }
-            oss << "OK";
-            return oss.str();
-        });
-
-        parser_.registerCommand("SYMMETRIC_DIFFERENCE", [this](const std::vector<std::string>& args) -> std::string {
-            // Исправление №6: проверка на лишние аргументы
-            if (!args.empty()) {
-                return "ERR SYMMETRIC_DIFFERENCE takes no arguments";
-            }
-            std::string error;
-            auto rows = db_.symmetricDifference(error);
-            if (rows.empty() && !error.empty()) {
-                return "ERR " + error;
-            }
-            std::ostringstream oss;
-            for (const auto& row : rows) {
-                oss << row.id << "," << row.nameA << "," << row.nameB << "\n";
-            }
-            oss << "OK";
-            return oss.str();
-        });
-    }
-
-    void doRead() {
-        auto self = shared_from_this();
-        boost::asio::async_read_until(socket_, buffer_, '\n',
-            [this, self](boost::system::error_code ec, std::size_t /*length*/) {
-                if (!ec) {
-                    std::istream is(&buffer_);
-                    std::string line;
-                    std::getline(is, line);
-                    if (!line.empty()) {
-                        if (line.back() == '\r')
-                            line.pop_back();
-                        std::string response = parser_.parse(line);
-                        // Исправление №5: сохраняем ответ в члене класса
-                        write_buffer_ = response + "\n";
-                        boost::asio::async_write(socket_, boost::asio::buffer(write_buffer_),
-                            [this, self](boost::system::error_code ec, std::size_t) {
-                                if (!ec) {
-                                    doRead();
-                                }
-                            });
-                    } else {
-                        doRead();
-                    }
-                }
-            });
-    }
-
-    tcp::socket socket_;
-    boost::asio::streambuf buffer_;
-    std::string write_buffer_;  // Исправление №5: буфер для хранения ответа
-    DatabaseManager& db_;
-    CommandParser& parser_;
+enum class Mode {
+    MAPPER,
+    REDUCER,
+    LOCAL,
+    STATS,
+    HELP
 };
 
-class Server {
-public:
-    Server(boost::asio::io_context& io_context, uint16_t port)
-        : acceptor_(io_context, tcp::endpoint(tcp::v4(), port))
-        , db_()
-        , parser_()
-    {
-        doAccept();
-    }
+Mode parseMode(const std::string& mode) {
+    if (mode == "mapper") return Mode::MAPPER;
+    if (mode == "reducer") return Mode::REDUCER;
+    if (mode == "local") return Mode::LOCAL;
+    if (mode == "stats") return Mode::STATS;
+    return Mode::HELP;
+}
 
-private:
-    void doAccept() {
-        acceptor_.async_accept(
-            [this](boost::system::error_code ec, tcp::socket socket) {
-                if (!ec) {
-                    std::make_shared<Session>(std::move(socket), db_, parser_)->start();
+void runLocal(const std::string& input_file) {
+    std::ifstream file(input_file);
+    if (!file.is_open()) {
+        std::cerr << "Error: Cannot open file " << input_file << std::endl;
+        return;
+    }
+    
+    std::vector<KeyValue> mapped;
+    std::string line;
+    bool is_first = true;
+    size_t processed = 0;
+    
+    while (std::getline(file, line)) {
+        if (is_first) {
+            is_first = false;
+            continue;
+        }
+        
+        auto fields = csv::parseLine(line);
+        if (fields.size() > 9 && !fields[9].empty()) {
+            try {
+                double price = std::stod(fields[9]);
+                if (price >= 0) {
+                    Stats stats;
+                    stats.add(price);
+                    mapped.push_back({"price", stats});
+                    processed++;
                 }
-                doAccept();
-            });
+            } catch (...) {
+                // Игнорируем ошибки
+            }
+        }
     }
+    file.close();
+    
+    // Shuffle - сортировка по ключу
+    std::sort(mapped.begin(), mapped.end(), 
+        [](const KeyValue& a, const KeyValue& b) {
+            return a.key < b.key;
+        });
+    
+    // Reduce - агрегация
+    std::map<std::string, Stats> reduced;
+    for (const auto& kv : mapped) {
+        reduced[kv.key].merge(kv.stats);
+    }
+    
+    std::cout << std::fixed << std::setprecision(2);
+    std::cout << "\n=== MapReduce Results ===" << std::endl;
+    std::cout << "Processed entries: " << processed << std::endl;
+    std::cout << "------------------------" << std::endl;
+    
+    for (const auto& pair : reduced) {
+        const std::string& key = pair.first;
+        const Stats& stats = pair.second;
+        std::cout << "Key: " << key << std::endl;
+        std::cout << "  Mean:      " << stats.mean() << std::endl;
+        std::cout << "  Variance:  " << stats.variance() << std::endl;
+        std::cout << "  Std Dev:   " << stats.stddev() << std::endl;
+        std::cout << "  Count:     " << stats.count << std::endl;
+    }
+}
 
-    tcp::acceptor acceptor_;
-    DatabaseManager db_;
-    CommandParser parser_;
-};
+void computeStats(const std::string& input_file) {
+    std::ifstream file(input_file);
+    if (!file.is_open()) {
+        std::cerr << "Error: Cannot open file " << input_file << std::endl;
+        return;
+    }
+    
+    Stats stats;
+    std::string line;
+    bool is_first = true;
+    size_t processed = 0;
+    
+    while (std::getline(file, line)) {
+        if (is_first) {
+            is_first = false;
+            continue;
+        }
+        
+        auto fields = csv::parseLine(line);
+        if (fields.size() > 9 && !fields[9].empty()) {
+            try {
+                double price = std::stod(fields[9]);
+                if (price >= 0) {
+                    stats.add(price);
+                    processed++;
+                }
+            } catch (...) {
+                // Игнорируем ошибки
+            }
+        }
+    }
+    file.close();
+    
+    std::cout << std::fixed << std::setprecision(2);
+    std::cout << "\n=== Direct Statistics (Verification) ===" << std::endl;
+    std::cout << "Processed entries: " << processed << std::endl;
+    std::cout << "------------------------" << std::endl;
+    std::cout << "Mean:      " << stats.mean() << std::endl;
+    std::cout << "Variance:  " << stats.variance() << std::endl;
+    std::cout << "Std Dev:   " << stats.stddev() << std::endl;
+    std::cout << "Count:     " << stats.count << std::endl;
+    std::cout << "Sum:       " << stats.sum << std::endl;
+    std::cout << "Sum Sq:    " << stats.sum_sq << std::endl;
+}
 
-void signalHandler(int /*signal*/) {
-    std::cout << "\nShutting down server..." << std::endl;
-    std::exit(0);
+void printHelp() {
+    std::cout << "MapReduce - Airbnb Price Statistics" << std::endl;
+    std::cout << std::endl;
+    std::cout << "Usage:" << std::endl;
+    std::cout << "  mapreduce <mode> [input_file]" << std::endl;
+    std::cout << std::endl;
+    std::cout << "Modes:" << std::endl;
+    std::cout << "  mapper           - Run as mapper (reads from stdin)" << std::endl;
+    std::cout << "  reducer          - Run as reducer (reads from stdin)" << std::endl;
+    std::cout << "  local <file>     - Run full pipeline locally" << std::endl;
+    std::cout << "  stats <file>     - Compute stats directly (verification)" << std::endl;
+    std::cout << "  help             - Show this help" << std::endl;
+    std::cout << std::endl;
+    std::cout << "Examples:" << std::endl;
+    std::cout << "  cat input.csv | mapreduce mapper | sort | mapreduce reducer" << std::endl;
+    std::cout << "  mapreduce local input/AB_NYC_2019.csv" << std::endl;
 }
 
 int main(int argc, char* argv[]) {
-    if (argc != 2) {
-        std::cerr << "Usage: join_server <port>\n";
+    if (argc < 2) {
+        printHelp();
         return 1;
     }
-
-    int portInt = std::atoi(argv[1]);
-    if (portInt <= 0 || portInt > 65535) {
-        std::cerr << "Port must be between 1 and 65535.\n";
-        return 1;
+    
+    Mode mode = parseMode(argv[1]);
+    
+    switch (mode) {
+        case Mode::MAPPER:
+            return mapper_main();
+            
+        case Mode::REDUCER:
+            return reducer_main();
+            
+        case Mode::LOCAL:
+            if (argc < 3) {
+                std::cerr << "Error: Missing input file" << std::endl;
+                return 1;
+            }
+            runLocal(argv[2]);
+            break;
+            
+        case Mode::STATS:
+            if (argc < 3) {
+                std::cerr << "Error: Missing input file" << std::endl;
+                return 1;
+            }
+            computeStats(argv[2]);
+            break;
+            
+        default:
+            printHelp();
+            return 1;
     }
-
-    std::signal(SIGINT, signalHandler);
-    std::signal(SIGTERM, signalHandler);
-
-    try {
-        boost::asio::io_context io_context;
-        Server server(io_context, static_cast<uint16_t>(portInt));
-
-        std::cout << "Server started on port " << portInt << std::endl;
-        io_context.run();
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return 1;
-    }
-
+    
     return 0;
 }

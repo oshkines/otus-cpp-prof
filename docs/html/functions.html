@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SQLite3Server – асинхронный SQL-сервер: Class Members</title>
+<title>MapReduce: Class Members</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -30,7 +30,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">SQLite3Server – асинхронный SQL-сервер<span id="projectnumber">&#160;5.3.0</span>
+   <div id="projectname">MapReduce<span id="projectnumber">&#160;5.7.0</span>
    </div>
   </td>
  </tr>
@@ -116,24 +116,20 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('functions.html
 
 <div class="contents">
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div><br/>
-<div class="qindex"><a class="qindex" href="#index_c">C</a><div class="alphasepar"></div><a class="qindex" href="#index_d">D</a><div class="alphasepar"></div><a class="qindex" href="#index_i">I</a><div class="alphasepar"></div><a class="qindex" href="#index_n">N</a><div class="alphasepar"></div><a class="qindex" href="#index_p">P</a><div class="alphasepar"></div><a class="qindex" href="#index_r">R</a><div class="alphasepar"></div><a class="qindex" href="#index_s">S</a><div class="alphasepar"></div><a class="qindex" href="#index_t">T</a><div class="alphasepar"></div><a class="qindex" href="#index_~">~</a></div>
+<div class="qindex"><a class="qindex" href="#index_a">A</a><div class="alphasepar"></div><a class="qindex" href="#index_c">C</a><div class="alphasepar"></div><a class="qindex" href="#index_d">D</a><div class="alphasepar"></div><a class="qindex" href="#index_k">K</a><div class="alphasepar"></div><a class="qindex" href="#index_m">M</a><div class="alphasepar"></div><a class="qindex" href="#index_s">S</a><div class="alphasepar"></div><a class="qindex" href="#index_v">V</a></div>
 <ul>
-<li>CommandCallback&#160;:&#160;<a class="el" href="class_command_parser.html#aa9c456e891cd55475da842d5f00c0b63">CommandParser</a></li>
-<li>CommandParser()&#160;:&#160;<a class="el" href="class_command_parser.html#a1fd17c361d85ec13c212cbac1999b9b3">CommandParser</a></li>
-<li>DatabaseManager()&#160;:&#160;<a class="el" href="class_database_manager.html#aa162d97472e6c31a4e873adda435dbb6">DatabaseManager</a></li>
-<li>id&#160;:&#160;<a class="el" href="struct_row.html#acae84002320209edac0e112e9b3a4b2a">Row</a></li>
-<li>insert()&#160;:&#160;<a class="el" href="class_database_manager.html#a3bfe5cb6177fdd1b93b0fa50133c61c4">DatabaseManager</a></li>
-<li>intersection()&#160;:&#160;<a class="el" href="class_database_manager.html#a49420646236d1965b2e0b2ecfc99dfa1">DatabaseManager</a></li>
-<li>nameA&#160;:&#160;<a class="el" href="struct_row.html#a767693f62c0b4d506228531a13482c67">Row</a></li>
-<li>nameB&#160;:&#160;<a class="el" href="struct_row.html#abcef77a7155b50c95f483fd2976fc18e">Row</a></li>
-<li>parse()&#160;:&#160;<a class="el" href="class_command_parser.html#a00a0d608133eec8fbf6f039e03223832">CommandParser</a></li>
-<li>registerCommand()&#160;:&#160;<a class="el" href="class_command_parser.html#ace2520105bdd1ed76ee4e8d7a0973674">CommandParser</a></li>
-<li>Server()&#160;:&#160;<a class="el" href="class_server.html#ae0435f6e4498c59c7601c799dbaf10b5">Server</a></li>
-<li>Session()&#160;:&#160;<a class="el" href="class_session.html#a7b369f48a2b1a20163aefdde5c721ff4">Session</a></li>
-<li>start()&#160;:&#160;<a class="el" href="class_session.html#a47baf956cead0046fcbac45c572c70d3">Session</a></li>
-<li>symmetricDifference()&#160;:&#160;<a class="el" href="class_database_manager.html#ad9a19961423669b080348982c380189a">DatabaseManager</a></li>
-<li>truncate()&#160;:&#160;<a class="el" href="class_database_manager.html#a46c243b61291651b0851942c2642b2db">DatabaseManager</a></li>
-<li>~DatabaseManager()&#160;:&#160;<a class="el" href="class_database_manager.html#ae9b3a5da1e04fbb00faf8a034da1d063">DatabaseManager</a></li>
+<li>add()&#160;:&#160;<a class="el" href="struct_stats.html#a4ecfbe3fb64154e918863a6426513f68">Stats</a></li>
+<li>count&#160;:&#160;<a class="el" href="struct_stats.html#a2cfa514e4a4693d1317dc35462b25460">Stats</a></li>
+<li>deserialize()&#160;:&#160;<a class="el" href="struct_key_value.html#a516f82f9a95340d13e5c2a734bca866c">KeyValue</a>, <a class="el" href="struct_stats.html#ad5c70aebb63a711a9bf74aa59ed6e04e">Stats</a></li>
+<li>key&#160;:&#160;<a class="el" href="struct_key_value.html#a715dfb275608ae7f4ed5af5db0efcbf4">KeyValue</a></li>
+<li>mean()&#160;:&#160;<a class="el" href="struct_stats.html#ada6439100a88cf0b9e4733a62a8f2a96">Stats</a></li>
+<li>merge()&#160;:&#160;<a class="el" href="struct_stats.html#af2c1339bb57974ace6fee422413c14d6">Stats</a></li>
+<li>serialize()&#160;:&#160;<a class="el" href="struct_key_value.html#aaab23d03d7ff6b1f1b5a3928dd8f2fff">KeyValue</a>, <a class="el" href="struct_stats.html#a21e35126440359c0e0e8937c80ca290e">Stats</a></li>
+<li>stats&#160;:&#160;<a class="el" href="struct_key_value.html#a42dcf8a834c92a8cfc0c302b6a23686a">KeyValue</a></li>
+<li>stddev()&#160;:&#160;<a class="el" href="struct_stats.html#a8924c3589d7815e84c91c7160bfe9566">Stats</a></li>
+<li>sum&#160;:&#160;<a class="el" href="struct_stats.html#a8aa5f868096fac761e50789d864d88f5">Stats</a></li>
+<li>sum_sq&#160;:&#160;<a class="el" href="struct_stats.html#aca6a3cd78fcdfc6bca09219ee0b20e44">Stats</a></li>
+<li>variance()&#160;:&#160;<a class="el" href="struct_stats.html#a47ff11f6b97742ed8bc36325aa999fb4">Stats</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,6 +1,0 @@
-{ 
-  "dependencies": [ 
-    "boost-system", 
-    "sqlite3" 
-  ] 
-} 

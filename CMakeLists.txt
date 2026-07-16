@@ -1,55 +1,61 @@
-cmake_minimum_required(VERSION 3.15)
-project(sqlite3server VERSION 5.3.0)
+cmake_minimum_required(VERSION 3.10)
+
+project(mapreduce VERSION 5.7.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-find_package(Boost REQUIRED COMPONENTS system)
-find_package(SQLite3 REQUIRED)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/input)
 
-add_executable(sqlite3server
-    src/main.cpp
-    src/DatabaseManager.cpp
-    src/CommandParser.cpp
-)
-
-target_include_directories(sqlite3server
-    PRIVATE
-        src
-        ${SQLite3_INCLUDE_DIRS}
-)
-
-target_link_libraries(sqlite3server
-    PRIVATE
-        ${Boost_LIBRARIES}
-        ${SQLite3_LIBRARIES}
-)
-
+set(INPUT_FILE ${CMAKE_SOURCE_DIR}/input/AB_NYC_2019.csv)
+if(EXISTS ${INPUT_FILE})
+    file(COPY ${CMAKE_SOURCE_DIR}/input/ DESTINATION ${CMAKE_BINARY_DIR}/input/)
+    message(STATUS "Input data copied to build directory")
+else()
+    message(WARNING "Input file not found: ${INPUT_FILE}")
+endif()
 
 if(MSVC)
-    target_compile_options(sqlite3server PRIVATE /W4)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 /O2")
 else()
-    target_compile_options(sqlite3server PRIVATE -Wall -Wextra -pedantic)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -O2")
 endif()
 
-
-install(TARGETS sqlite3server
-    RUNTIME DESTINATION bin
+set(COMMON_SOURCES
+    src/mapper.cpp
+    src/reducer.cpp
+    src/statistics.cpp
 )
 
-set(DEBIAN_TEMPLATE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/debian/templates")
-set(DEBIAN_OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/debian")
+set(HEADERS
+    src/csv_parser.hpp
+    src/statistics.hpp
+)
 
-set(DEBIAN_TEMPLATES control changelog rules)
+add_executable(mapreduce 
+    src/main.cpp
+    src/mapper.cpp
+    src/reducer.cpp
+    src/statistics.cpp
+    ${HEADERS}
+)
+target_include_directories(mapreduce PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
-foreach(TEMPLATE ${DEBIAN_TEMPLATES})
-    configure_file(
-        "${DEBIAN_TEMPLATE_DIR}/${TEMPLATE}"
-        "${DEBIAN_OUTPUT_DIR}/${TEMPLATE}"
-        @ONLY
-    )
-endforeach()
+add_executable(mapper 
+    src/mapper_main.cpp
+    src/statistics.cpp
+    ${HEADERS}
+)
+target_include_directories(mapper PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
-if(EXISTS "${DEBIAN_OUTPUT_DIR}/rules")
-    file(CHMOD "${DEBIAN_OUTPUT_DIR}/rules" PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
-endif()
+add_executable(reducer 
+    src/reducer_main.cpp
+    src/statistics.cpp
+    ${HEADERS}
+)
+target_include_directories(reducer PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
+install(TARGETS mapreduce mapper reducer
+    RUNTIME DESTINATION bin
+)

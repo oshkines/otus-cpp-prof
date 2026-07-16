@@ -1,140 +1,148 @@
-markdown
-# sqlite3server – асинхронный SQL-сервер для операций над множествами
+# MapReduce - Airbnb Price Statistics
 
-## Описание
+Проект для вычисления статистических характеристик (среднее, дисперсия) цен на недвижимость в Нью-Йорке в парадигме MapReduce.
 
-Сервер обрабатывает SQL-подобные команды для двух таблиц `A` и `B` с фиксированной структурой:
-
-```sql
-{
-    int id;
-    std::string name;
-}
-Поддерживаются операции:
-
-INSERT – добавление записи в таблицу.
-
-TRUNCATE – очистка таблицы.
-
-INTERSECTION – пересечение двух таблиц (INNER JOIN).
-
-SYMMETRIC_DIFFERENCE – симметрическая разность (элементы, присутствующие только в одной из таблиц).
-
-Сервер написан на C++17 с использованием Boost.Asio (асинхронный ввод-вывод) и SQLite3 (встроенная БД в памяти).
-
-Установка
-Из DEB-пакета (рекомендуется)
-bash
-sudo dpkg -i join-server_5.2.0_amd64.deb
-Сборка из исходников
-bash
-mkdir build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-make
-Запуск
-bash
-./join-server 9000
-Сервер запустится на порту 9000 и будет принимать команды от клиентов.
-
-Протокол
-Команды отправляются по TCP, каждая команда завершается символом \n.
-
-Команды
-Команда	Формат	Пример	Ответ
-INSERT	INSERT table id name	INSERT A 0 lean	OK или ERR duplicate <id>
-TRUNCATE	TRUNCATE table	TRUNCATE A	OK
-INTERSECTION	INTERSECTION	INTERSECTION	Строки вида id,nameA,nameB и OK в конце
-SYMMETRIC_DIFFERENCE	SYMMETRIC_DIFFERENCE	SYMMETRIC_DIFFERENCE	Строки вида id,nameA,nameB и OK в конце
-Пример сессии
-bash
-$ echo "INSERT A 0 lean" | nc localhost 9000
-OK
-
-$ echo "INSERT A 1 sweater" | nc localhost 9000
-OK
-
-$ echo "INTERSECTION" | nc localhost 9000
-0,lean,
-1,sweater,
-OK
-
-$ echo "SYMMETRIC_DIFFERENCE" | nc localhost 9000
-0,lean,
-1,sweater,
-2,frank,
-6,,flour
-7,,wonder
-8,,selection
-OK
-Тестовые данные
-Таблица A
-
-id	name
-0	lean
-1	sweater
-2	frank
-3	violation
-4	quality
-5	precision
-Таблица B
-
-id	name
-3	proposal
-4	example
-5	lake
-6	flour
-7	wonder
-8	selection
-Результат INTERSECTION
-id	A	B
-3	violation	proposal
-4	quality	example
-5	precision	lake
-Результат SYMMETRIC_DIFFERENCE
-id	A	B
-0	lean	
-1	sweater	
-2	frank	
-6		flour
-7		wonder
-8		selec
-Сборка DEB-пакета через Docker
-bash
-docker build -t join-builder .
-docker run --rm -v ${PWD}:/host join-builder cp /output/*.deb /host/
-Полученный файл join-server_5.2.0_amd64.deb можно установить.
-
-Генерация документации
-bash
-doxygen Doxyfile
-Документация появится в папке docs/html/.
-
-Структура проекта
-text
+## Структура проекта
 .
-├── CMakeLists.txt
-├── Dockerfile
-├── Doxyfile
-├── README.md
-├── src/
-│   ├── main.cpp
-│   ├── DatabaseManager.hpp
-│   ├── DatabaseManager.cpp
-│   ├── CommandParser.hpp
-│   └── CommandParser.cpp
-├── debian/
-│   ├── templates/
-│   │   ├── control
-│   │   ├── changelog
-│   │   └── rules
-│   └── source/
-│       └── format
-└── docs/
-    └── html/
-        └── index.html
+├── CMakeLists.txt # Конфигурация сборки
+├── Dockerfile # Docker образ
+├── Doxyfile # Конфигурация Doxygen
+├── README.md # Этот файл
+├── .gitignore # Игнорируемые файлы
+├── debian/ # Debian пакет
+│ └── (файлы для debian-пакета)
+├── docs/ # Документация
+├── src/ # Исходный код
+│ ├── main.cpp # Главная программа
+│ ├── mapper.cpp # Mapper
+│ ├── reducer.cpp # Reducer
+│ ├── csv_parser.hpp # Парсер CSV
+│ ├── statistics.hpp # Статистические функции
+│ └── statistics.cpp # Реализация статистики
+├── input/ # Входные данные
+│ └── AB_NYC_2019.csv # Датасет Airbnb
+├── bin/ # Собранные бинарники
+├── scripts/ # Скрипты
+│ ├── run_locally.sh # Локальный запуск
+│ └── run_hadoop.sh # Запуск в Hadoop
+└── tests/ # Тесты (опционально)
+
+
+## Сборка
+
+### Локальная сборка
+
+```bash
+mkdir build && cd build
+cmake ..
+make -j$(nproc)
+
+
+## Сборка
+
+### Локальная сборка
+
+```bash
+mkdir build && cd build
+cmake ..
+make -j$(nproc)
+
+docker build -t mapreduce .
+docker run --rm -v $(pwd)/input:/app/input -v $(pwd)/output:/app/output mapreduce
+
+Использование
+1. Основные режимы
+
+# Запуск mapper (читает из stdin)
+cat input.csv | ./bin/mapreduce mapper
+
+# Запуск reducer (читает из stdin)
+./bin/mapreduce reducer
+
+# Полный пайплайн локально
+./bin/mapreduce local input/AB_NYC_2019.csv
+
+# Прямой подсчёт статистики (для верификации)
+./bin/mapreduce stats input/AB_NYC_2019.csv
+
+2. MapReduce пайплайн
+
+# Полный пайплайн вручную
+cat input/AB_NYC_2019.csv | \
+    ./bin/mapreduce mapper | \
+    sort -k1 | \
+    ./bin/mapreduce reducer
+
+# Использование скрипта
+./scripts/run_locally.sh
+
+3. Отдельные бинарники
+
+# Собрать отдельные бинарники
+make mapper reducer
+
+# Использовать
+cat input.csv | ./bin/mapper | sort | ./bin/reducer
+
+Результаты
+Программа выводит:
+
+Mean - средняя цена
+
+Variance - дисперсия цены
+
+Std Dev - среднеквадратическое отклонение
+
+Count - количество записей
+
+Пример вывода:
+
+=== Statistics for: price ===
+Mean:      152.72
+Variance:  28765.81
+Std Dev:   169.60
+Count:     48895
+
+Тестирование
+Проверка корректности
+Программа имеет режим stats, который вычисляет статистику напрямую (без MapReduce) для верификации результатов.
+
+./bin/mapreduce stats input/AB_NYC_2019.csv
+
+Dependencies
+CMake 3.10+
+
+C++17 compiler (GCC 7+, Clang 5+)
+
+(Опционально) Docker для контейнеризации
+
 Автор
-oshkines oshkines@mail.ru
+Студент курса "C++ Профессионал" от OTUS
 
 Лицензия
-Учебный проект.
+MIT License
+
+## Использование
+
+### Сборка и запуск
+
+```bash
+# Сборка
+mkdir build && cd build
+cmake ..
+make
+
+# Запуск полного пайплайна
+cd ..
+./bin/mapreduce local input/AB_NYC_2019.csv
+
+# Или используя скрипт
+./scripts/run_locally.sh
+
+Проверка результатов
+# Прямой подсчёт статистики для верификации
+./bin/mapreduce stats input/AB_NYC_2019.csv
+
+# Сравнение с результатами MapReduce
+cat output/result.txt
 

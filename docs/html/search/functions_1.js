@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['databasemanager_0',['DatabaseManager',['../class_database_manager.html#aa162d97472e6c31a4e873adda435dbb6',1,'DatabaseManager']]]
+  ['computestats_0',['computeStats',['../main_8cpp.html#ab29f63c5a7ea025b4596705d3b93f8f9',1,'main.cpp']]]
 ];
