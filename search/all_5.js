@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['parse_14',['parse',['../classCommandParser.html#a00a0d608133eec8fbf6f039e03223832',1,'CommandParser']]]
+  ['key_8',['key',['../structKeyValue.html#a715dfb275608ae7f4ed5af5db0efcbf4',1,'KeyValue']]],
+  ['keyvalue_9',['KeyValue',['../structKeyValue.html',1,'']]]
 ];

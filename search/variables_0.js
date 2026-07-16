@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['id_48',['id',['../structRow.html#acae84002320209edac0e112e9b3a4b2a',1,'Row']]]
+  ['count_65',['count',['../structStats.html#a2cfa514e4a4693d1317dc35462b25460',1,'Stats']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['databasemanager_25',['DatabaseManager',['../classDatabaseManager.html',1,'']]]
+  ['stats_39',['Stats',['../structStats.html',1,'']]]
 ];

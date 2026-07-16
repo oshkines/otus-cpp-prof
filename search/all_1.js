@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['databasemanager_4',['DatabaseManager',['../classDatabaseManager.html',1,'DatabaseManager'],['../classDatabaseManager.html#aa162d97472e6c31a4e873adda435dbb6',1,'DatabaseManager::DatabaseManager()']]],
-  ['databasemanager_2ecpp_5',['DatabaseManager.cpp',['../DatabaseManager_8cpp.html',1,'']]],
-  ['databasemanager_2ehpp_6',['DatabaseManager.hpp',['../DatabaseManager_8hpp.html',1,'']]]
+  ['computestats_1',['computeStats',['../main_8cpp.html#ab29f63c5a7ea025b4596705d3b93f8f9',1,'main.cpp']]],
+  ['count_2',['count',['../structStats.html#a2cfa514e4a4693d1317dc35462b25460',1,'Stats']]],
+  ['csv_3',['csv',['../namespacecsv.html',1,'']]],
+  ['csv_5fparser_2ehpp_4',['csv_parser.hpp',['../csv__parser_8hpp.html',1,'']]]
 ];

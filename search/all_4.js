@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['namea_12',['nameA',['../structRow.html#a767693f62c0b4d506228531a13482c67',1,'Row']]],
-  ['nameb_13',['nameB',['../structRow.html#abcef77a7155b50c95f483fd2976fc18e',1,'Row']]]
+  ['isheader_7',['isHeader',['../namespacecsv.html#a5bf172c42f33794fcb1e98c4f1f999a3',1,'csv']]]
 ];

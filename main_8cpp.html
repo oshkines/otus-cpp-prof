@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SQLite3Server – асинхронный SQL-сервер: src/main.cpp File Reference</title>
+<title>MapReduce: src/main.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,8 +25,8 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">SQLite3Server – асинхронный SQL-сервер
-   &#160;<span id="projectnumber">5.3.0</span>
+   <div id="projectname">MapReduce
+   &#160;<span id="projectnumber">5.7.0</span>
    </div>
   </td>
  </tr>
@@ -83,61 +83,122 @@ $(document).ready(function(){initNavTree('main_8cpp.html',''); initResizable(); 
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">main.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;boost/asio.hpp&gt;</code><br />
-<code>#include &lt;iostream&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
+<div class="textblock"><code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
-<code>#include &lt;sstream&gt;</code><br />
-<code>#include &lt;thread&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;iomanip&gt;</code><br />
 <code>#include &lt;cstdlib&gt;</code><br />
-<code>#include &lt;csignal&gt;</code><br />
-<code>#include &quot;<a class="el" href="DatabaseManager_8hpp_source.html">DatabaseManager.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="CommandParser_8hpp_source.html">CommandParser.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="csv__parser_8hpp_source.html">csv_parser.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="statistics_8hpp_source.html">statistics.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for main.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp__incl.png" border="0" usemap="#asrc_2main_8cpp" alt=""/></div>
 <map name="asrc_2main_8cpp" id="asrc_2main_8cpp">
-<area shape="rect" title=" " alt="" coords="477,5,582,32"/>
-<area shape="rect" title=" " alt="" coords="5,80,123,107"/>
-<area shape="rect" title=" " alt="" coords="147,80,227,107"/>
-<area shape="rect" title=" " alt="" coords="208,155,285,181"/>
-<area shape="rect" title=" " alt="" coords="413,155,472,181"/>
-<area shape="rect" title=" " alt="" coords="725,80,800,107"/>
-<area shape="rect" title=" " alt="" coords="824,80,888,107"/>
-<area shape="rect" title=" " alt="" coords="913,80,978,107"/>
-<area shape="rect" title=" " alt="" coords="1002,80,1070,107"/>
-<area shape="rect" href="DatabaseManager_8hpp.html" title=" " alt="" coords="352,80,520,107"/>
-<area shape="rect" href="CommandParser_8hpp.html" title=" " alt="" coords="545,80,701,107"/>
-<area shape="rect" title=" " alt="" coords="310,155,389,181"/>
-<area shape="rect" title=" " alt="" coords="497,155,559,181"/>
-<area shape="rect" title=" " alt="" coords="584,155,648,181"/>
-<area shape="rect" title=" " alt="" coords="783,155,907,181"/>
-<area shape="rect" title=" " alt="" coords="673,155,759,181"/>
+<area shape="rect" title=" " alt="" coords="435,5,541,32"/>
+<area shape="rect" title=" " alt="" coords="5,80,85,107"/>
+<area shape="rect" title=" " alt="" coords="403,155,461,181"/>
+<area shape="rect" title=" " alt="" coords="489,80,562,107"/>
+<area shape="rect" title=" " alt="" coords="105,155,167,181"/>
+<area shape="rect" title=" " alt="" coords="587,80,672,107"/>
+<area shape="rect" title=" " alt="" coords="696,80,747,107"/>
+<area shape="rect" title=" " alt="" coords="771,80,845,107"/>
+<area shape="rect" title=" " alt="" coords="870,80,935,107"/>
+<area shape="rect" href="csv__parser_8hpp.html" title=" " alt="" coords="161,80,279,107"/>
+<area shape="rect" href="statistics_8hpp.html" title=" " alt="" coords="304,80,413,107"/>
+<area shape="rect" title=" " alt="" coords="193,155,268,181"/>
+<area shape="rect" title=" " alt="" coords="315,155,378,181"/>
 </map>
 </div>
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSession.html">Session</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServer.html">Server</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a46c8a310cf4c094f8c80e1cb8dc1f911"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a46c8a310cf4c094f8c80e1cb8dc1f911">Mode</a> { <br />
+&#160;&#160;<a class="el" href="main_8cpp.html#a46c8a310cf4c094f8c80e1cb8dc1f911a34e62cfc8e8416231ecc423264f50b5e">MAPPER</a>
+, <a class="el" href="main_8cpp.html#a46c8a310cf4c094f8c80e1cb8dc1f911a3834ae1d4a379397c5a3a03820f66e6f">REDUCER</a>
+, <a class="el" href="main_8cpp.html#a46c8a310cf4c094f8c80e1cb8dc1f911a54b4c4075463b2e02cd69f5cd139b5b2">LOCAL</a>
+, <a class="el" href="main_8cpp.html#a46c8a310cf4c094f8c80e1cb8dc1f911a426708f5e123b45ded3bdc67cd895db5">STATS</a>
+, <br />
+&#160;&#160;<a class="el" href="main_8cpp.html#a46c8a310cf4c094f8c80e1cb8dc1f911a4fc963e213bba362778f5c175eb4d5ff">HELP</a>
+<br />
+ }</td></tr>
+<tr class="separator:a46c8a310cf4c094f8c80e1cb8dc1f911"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:adfe90e1a94b18921c8a8ec76d94edbd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#adfe90e1a94b18921c8a8ec76d94edbd4">signalHandler</a> (int)</td></tr>
-<tr class="separator:adfe90e1a94b18921c8a8ec76d94edbd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0294728b869f8f9039f225080c03877f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a0294728b869f8f9039f225080c03877f">mapper_main</a> ()</td></tr>
+<tr class="separator:a0294728b869f8f9039f225080c03877f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf1d818773da3a3d4643f88d08872a7a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#abf1d818773da3a3d4643f88d08872a7a">reducer_main</a> ()</td></tr>
+<tr class="separator:abf1d818773da3a3d4643f88d08872a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e9502d444d28f3fc8afe55e9cbb51d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="main_8cpp.html#a46c8a310cf4c094f8c80e1cb8dc1f911">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a3e9502d444d28f3fc8afe55e9cbb51d9">parseMode</a> (const std::string &amp;mode)</td></tr>
+<tr class="separator:a3e9502d444d28f3fc8afe55e9cbb51d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19d3901f55fa48a173c7219dfedcd12f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a19d3901f55fa48a173c7219dfedcd12f">runLocal</a> (const std::string &amp;input_file)</td></tr>
+<tr class="separator:a19d3901f55fa48a173c7219dfedcd12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab29f63c5a7ea025b4596705d3b93f8f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#ab29f63c5a7ea025b4596705d3b93f8f9">computeStats</a> (const std::string &amp;input_file)</td></tr>
+<tr class="separator:ab29f63c5a7ea025b4596705d3b93f8f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d20b69b0ad703df78459e1033d5c1d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a0d20b69b0ad703df78459e1033d5c1d4">printHelp</a> ()</td></tr>
+<tr class="separator:a0d20b69b0ad703df78459e1033d5c1d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a> (int argc, char *argv[])</td></tr>
 <tr class="separator:a0ddf1224851353fc92bfbff6f499fa97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a46c8a310cf4c094f8c80e1cb8dc1f911"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46c8a310cf4c094f8c80e1cb8dc1f911">&#9670;&nbsp;</a></span>Mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="main_8cpp.html#a46c8a310cf4c094f8c80e1cb8dc1f911">Mode</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a46c8a310cf4c094f8c80e1cb8dc1f911a34e62cfc8e8416231ecc423264f50b5e"></a>MAPPER&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a46c8a310cf4c094f8c80e1cb8dc1f911a3834ae1d4a379397c5a3a03820f66e6f"></a>REDUCER&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a46c8a310cf4c094f8c80e1cb8dc1f911a54b4c4075463b2e02cd69f5cd139b5b2"></a>LOCAL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a46c8a310cf4c094f8c80e1cb8dc1f911a426708f5e123b45ded3bdc67cd895db5"></a>STATS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a46c8a310cf4c094f8c80e1cb8dc1f911a4fc963e213bba362778f5c175eb4d5ff"></a>HELP&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ab29f63c5a7ea025b4596705d3b93f8f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab29f63c5a7ea025b4596705d3b93f8f9">&#9670;&nbsp;</a></span>computeStats()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void computeStats </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>input_file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a0ddf1224851353fc92bfbff6f499fa97"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0ddf1224851353fc92bfbff6f499fa97">&#9670;&nbsp;</a></span>main()</h2>
 
@@ -166,17 +227,86 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="adfe90e1a94b18921c8a8ec76d94edbd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adfe90e1a94b18921c8a8ec76d94edbd4">&#9670;&nbsp;</a></span>signalHandler()</h2>
+<a id="a0294728b869f8f9039f225080c03877f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0294728b869f8f9039f225080c03877f">&#9670;&nbsp;</a></span>mapper_main()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void signalHandler </td>
+          <td class="memname">int mapper_main </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
           <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3e9502d444d28f3fc8afe55e9cbb51d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e9502d444d28f3fc8afe55e9cbb51d9">&#9670;&nbsp;</a></span>parseMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="main_8cpp.html#a46c8a310cf4c094f8c80e1cb8dc1f911">Mode</a> parseMode </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>mode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0d20b69b0ad703df78459e1033d5c1d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d20b69b0ad703df78459e1033d5c1d4">&#9670;&nbsp;</a></span>printHelp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void printHelp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abf1d818773da3a3d4643f88d08872a7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf1d818773da3a3d4643f88d08872a7a">&#9670;&nbsp;</a></span>reducer_main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int reducer_main </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a19d3901f55fa48a173c7219dfedcd12f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19d3901f55fa48a173c7219dfedcd12f">&#9670;&nbsp;</a></span>runLocal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void runLocal </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>input_file</em></td><td>)</td>
           <td></td>
         </tr>
       </table>

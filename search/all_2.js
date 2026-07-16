@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['id_7',['id',['../structRow.html#acae84002320209edac0e112e9b3a4b2a',1,'Row']]],
-  ['insert_8',['insert',['../classDatabaseManager.html#a3bfe5cb6177fdd1b93b0fa50133c61c4',1,'DatabaseManager']]],
-  ['intersection_9',['intersection',['../classDatabaseManager.html#a49420646236d1965b2e0b2ecfc99dfa1',1,'DatabaseManager']]]
+  ['deserialize_5',['deserialize',['../structStats.html#ad5c70aebb63a711a9bf74aa59ed6e04e',1,'Stats::deserialize()'],['../structKeyValue.html#a516f82f9a95340d13e5c2a734bca866c',1,'KeyValue::deserialize()']]]
 ];
